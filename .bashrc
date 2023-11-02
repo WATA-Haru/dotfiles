@@ -14,3 +14,4 @@ if [ -d ~/.bash_aliases ]; then
         fi
     done
 fi
+
