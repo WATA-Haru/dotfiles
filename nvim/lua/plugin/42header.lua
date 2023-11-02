@@ -1,11 +1,14 @@
-return
-{
-	'0ur4n05/42header.nvim',
-	tag = 'v2.*',
-	dependencies = {'akinsho/toggleterm.nvim'},
-	event = {"BufNewFile", "BufRead"},
-	config = function()
-		require('toggleterm').setup{}
-		--require('42header').setup{}
-	end,
+return {
+    "Diogo-ss/42-header.nvim",
+    lazy = false,
+    config = function()
+        local header = require("42header")
+        header.setup({
+            default_map = true, -- default Mapping <F1> in normal mode
+            auto_update = true,  -- update header when saving
+            user = "hwatahik",
+            mail = "hwatahik@student.42tokyo.jp"
+
+        })
+    end
 }
