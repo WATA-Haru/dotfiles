@@ -6,7 +6,6 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set hlsearch
-" set list listchars=tab:\^\
 
 set clipboard=unnamed,autoselect
 inoremap jk <ESC>
@@ -37,8 +36,6 @@ if !empty($WSL_DISTRO_NAME)
     endif
 endif
 
-"source ~/.vim/pack/42plug/start/stdheader.vim
 let g:user42 = 'hwatahik'
 let g:mail42 = 'hwatahik@student.42tokyo.jp'
-"let g:NERDTreeLimitedSyntax = 1
 
