@@ -5,3 +5,5 @@ alias mv='mv -i'
 alias cp='cp -i'
 alias gs='git status'
 alias c='clear'
+
+alias norminette='norminette -R CheckForbiddenSourceHeader"
