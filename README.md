@@ -1,5 +1,8 @@
 # 42-dotfiles
+my dotfiles
 
-1. bashrc, aliases
-2. norminette
-3. 42header 
+1. bashrc
+2. bash_aliases
+3. nvim
+4. vim
+5. tmux
