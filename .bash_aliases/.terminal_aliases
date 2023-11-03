@@ -8,6 +8,7 @@ alias c='clear'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-alias tmux='tmux -u"
+alias tmux='tmux -u'
 
+# 42tokyo setting
 alias norminette='norminette -R CheckForbiddenSourceHeader'
