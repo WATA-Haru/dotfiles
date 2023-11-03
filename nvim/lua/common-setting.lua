@@ -17,19 +17,19 @@ vim.opt.clipboard = "unnamedplus"
 
 -- windows wsl only settings 
 -- but if you write if vim.fn.has("win64") == 1 then , system cant use clipboard.
-if vim.fn.has('wsl') == 1 then
-  vim.g.clipboard = {
-  name = "win32yank-wsl",
-  copy = {
-    ["+"] = "win32yank.exe -i --crlf",
-    ["*"] = "win32yank.exe -i --crlF"
-    },
-  paste = {
-    ["+"] = "win32yank.exe -o --crlf",
-    ["*"] = "win32yank.exe -o --crlf"
-    },
-  cache_enable = 0,
-  }
+if vim.env.TMUX then
+    vim.g.clipboard = {
+        name = 'tmux',
+        copy = {
+            ["+"] = {'tmux', 'load-buffer', '-w', '-'},
+            ["*"] = {'tmux', 'load-buffer', '-w', '-'},
+        },
+        paste = {
+            ["+"] = {'tmux', 'save-buffer', '-'},
+            ["*"] = {'tmux', 'save-buffer', '-'},
+        },
+        cache_enabled = false,
+    }
 end
 
 -- recognize python3_host_prog to pass checkhealth
