@@ -13,6 +13,6 @@ alias tmux='tmux -u'
 # 42tokyo setting
 alias norminette='norminette -R CheckForbiddenSourceHeader'
 
-# as nvim lsp is large, create symbolic link for pre-installed lsp
-alias nvimlsp='rm -rf ~/.local/share/nvim/mason && ln -s /home/nvimlsp ~/.local/share/nvim/mason'
-
+# create symbolic link for pre-installed nvim share and state dir
+alias nvimshare='rm -rf ~/.local/share/nvim && mkdir ~/.local/share && ln -s /home/nvim_localplug_cache/share/nvim ~/.local/share/nvim'
+alias nvimstate='rm -rf ~/.local/state/nvim && mkdir ~/.local/state && ln -s /home/nvim_localplug_cache/state/nvim ~/.local/state/nvim'
