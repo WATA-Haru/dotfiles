@@ -1,0 +1,36 @@
+autoinstall:
+  version: 1
+  source:
+    id: ubuntu-desktop-minimal
+  locale: ja_JP.UTF-8
+  keyboard:
+    layout: 'us'
+    variant: ''
+    toggle: null
+  timezone: Asia/Tokyo
+  identity:
+    hostname: ubuntu-desktop
+    realname: '<your-name>'
+    username: <your-name>
+    password: '<your-password>'
+  packages:
+    - build-essential
+    - ca-certificates
+    - net-tools
+    - gnupg
+    - curl
+    - wget
+    - git
+    - gh
+    - zip
+    - unzip
+    - vim
+    - tree
+  storage:
+    layout:
+      name: lvm
+      sizing-policy: all
+      password: <your-password>
+  late-commands:
+    - curtin in-target -- apt update -y
+
