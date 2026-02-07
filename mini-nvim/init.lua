@@ -16,16 +16,33 @@ local function paste()
 end
 
 vim.g.clipboard = {
-  name = "OSC 52",
+  name = 'OSC 52',
   copy = {
-    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
   },
   paste = {
-    ["+"] = paste,
-    ["*"] = paste,
+    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
   },
 }
+
+if vim.env.TMUX ~= nil then
+  local copy = {'tmux', 'load-buffer', '-w', '-'}
+  local paste = {'bash', '-c', 'tmux refresh-client -l && sleep 0.05 && tmux save-buffer -'}
+  vim.g.clipboard = {
+    name = 'tmux',
+    copy = {
+      ['+'] = copy,
+      ['*'] = copy,
+    },
+    paste = {
+      ['+'] = paste,
+      ['*'] = paste,
+    },
+    cache_enabled = 0,
+  }
+end
 
 -- Clone 'mini.nvim' manually in a way that it gets managed by 'mini.deps'
 local path_package = vim.fn.stdpath('data') .. '/site/'
@@ -85,29 +102,31 @@ now(function()
   local desc = 'Split ' .. direction
   vim.keymap.set('n', lhs, rhs, { buffer = buf_id, desc = desc })
   end
-  
   vim.api.nvim_create_user_command(
     'Ex',
-    function()
-      MiniFiles.open()
+    function(opts)
+      local path = opts.args ~= "" and opts.args or nil
+      MiniFiles.open(path)
     end,
-    { desc = 'Open file exproler' }
+    { desc = 'Open file explorer', nargs = "?" }
   )
   vim.api.nvim_create_user_command(
     'Ve',
-    function()
+    function(opts)
+      local path = opts.args ~= "" and opts.args or nil
       vim.cmd('vertical leftabove new')
-      MiniFiles.open()
+      MiniFiles.open(path)
     end,
-    { desc = 'Vertical split and Open file exproler' }
+    { desc = 'Vertical split and Open file exproler', nargs = "?" }
   )
   vim.api.nvim_create_user_command(
     'Se',
-    function()
+    function(opts)
+      local path = opts.args ~= "" and opts.args or nil
       vim.cmd('leftabove new')
-      MiniFiles.open()
+      MiniFiles.open(path)
     end,
-    { desc = 'horizontal split and Open file exproler' }
+    { desc = 'horizontal split and Open file exproler', nargs = "?"}
   )
 
   vim.api.nvim_create_autocmd('User', {
