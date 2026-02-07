@@ -27,6 +27,7 @@ vim.g.clipboard = {
   },
 }
 
+-- https://github.com/neovim/neovim/discussions/29350#discussioncomment-10299517
 if vim.env.TMUX ~= nil then
   local copy = {'tmux', 'load-buffer', '-w', '-'}
   local paste = {'bash', '-c', 'tmux refresh-client -l && sleep 0.05 && tmux save-buffer -'}
