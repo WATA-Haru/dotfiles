@@ -11,3 +11,6 @@ sudo apt install gnome-browser-connector
 
 ## shutdown required
 sudo shutdown -r now
+echo "shutdown required"
+// TODO: if statement
+sudo shutdown -r now

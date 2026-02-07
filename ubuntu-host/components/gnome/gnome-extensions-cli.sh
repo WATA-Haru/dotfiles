@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # gnome-extensions-cli:  https://github.com/essembeh/gnome-extensions-cli
 # kimpanelはinstallとenableできるが`extension-manager`で有効化ができないためGUIで別途設定
 # gnome-extensions-cli install kimpanel@kde.org

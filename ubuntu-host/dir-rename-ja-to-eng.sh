@@ -1,5 +1,5 @@
 #!bin/bash
-bash ./fcitx5-install.sh
+LANG=C LC_ALL=C xdg-user-dirs-gtk-update
 
 echo "shutdown required"
 // TODO: if statement

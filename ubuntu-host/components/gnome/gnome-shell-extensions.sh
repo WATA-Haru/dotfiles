@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 # cf. https://namileriblog.com/linux/first-setting-ubuntu_2404/#i-20
 # cf. https://gihyo.jp/admin/serial/01/ubuntu-recipe/0541
