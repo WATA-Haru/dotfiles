@@ -21,7 +21,7 @@ autoinstall:
     - curl
     - wget
     - git
-    - gh
+    - snapd
     - zip
     - unzip
     - vim
