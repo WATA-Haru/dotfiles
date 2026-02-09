@@ -197,3 +197,20 @@ later(function()
   add('https://github.com/zbirenbaum/copilot.lua')
   require('copilot').setup()
 end)
+
+-- colorize specific word and color code
+later(function()
+  local hipatterns = require('mini.hipatterns')
+  local hi_words = require('mini.extra').gen_highlighter.words
+  hipatterns.setup({
+    highlighters = {
+      -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+      fixme = hi_words({ 'FIXME', 'Fixme', 'fixme' }, 'MiniHipatternsFixme'),
+      hack = hi_words({ 'HACK', 'Hack', 'hack' }, 'MiniHipatternsHack'),
+      todo = hi_words({ 'TODO', 'Todo', 'todo' }, 'MiniHipatternsTodo'),
+      note = hi_words({ 'NOTE', 'Note', 'note' }, 'MiniHipatternsNote'),
+      -- Highlight hex color strings (`#rrggbb`) using that color
+      hex_color = hipatterns.gen_highlighter.hex_color(),
+    },
+  })
+end)
