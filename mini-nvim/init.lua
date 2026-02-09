@@ -1,12 +1,16 @@
+-- share clipboard with OS
+vim.opt.clipboard:append('unnamedplus,unnamed')
+
+-- use 2-spaces indent
+vim.opt.expandtab = true
+vim.opt.shiftround = true
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+vim.opt.tabstop = 2
+
 local map = vim.api.nvim_set_keymap
 vim.g.mapleader = ' '
 map('i', 'jk', '<Esc>', { noremap = true })
-
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-vim.opt.clipboard:append({"unnamedplus"})
-vim.opt.clipboard = "unnamedplus"
 
 local function paste()
   return {
