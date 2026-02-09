@@ -8,6 +8,9 @@ vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 vim.opt.tabstop = 2
 
+-- color
+vim.opt.background = "light"
+
 local map = vim.api.nvim_set_keymap
 vim.g.mapleader = ' '
 map('i', 'jk', '<Esc>', { noremap = true })
