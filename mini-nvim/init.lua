@@ -143,6 +143,15 @@ now(function()
 end)
 
 later(function()
+  require('mini.diff').setup({
+    view = {
+      style = 'sign',
+      signs = { add = '+', change = '~', delete = '-' },
+    }, 
+  })
+end)
+
+later(function()
   add('https://github.com/vim-jp/vimdoc-ja')
   -- Prefer Japanese as the help language
   vim.opt.helplang:prepend('ja')
