@@ -152,6 +152,19 @@ now(function()
   vim.opt.cmdheight = 1
 end)
 
+now(function()
+  require('mini.misc').setup()
+
+  MiniMisc.setup_restore_cursor()
+  vim.api.nvim_create_user_command('Zoom',
+    function()
+      MiniMisc.zoom(0, {})
+    end,
+    { desc = 'Zoom current buffer' }
+  )
+  map('n', 'mz', '<cmd>Zoom<cr>', { desc = 'Zoom current buffer' })
+end)
+
 later(function()
   require('mini.diff').setup({
     view = {
