@@ -142,6 +142,34 @@ now(function()
   })
 end)
 
+now(function()
+  require('mini.statusline').setup()
+  vim.opt.laststatus = 3
+  vim.opt.cmdheight = 0
+
+  -- ref: https://github.com/Shougo/shougo-s-github/blob/2f1c9acacd3a341a1fa40823761d9593266c65d4/vim/rc/vimrc#L47-L49
+  vim.api.nvim_create_autocmd({ 'RecordingEnter', 'CmdlineEnter' }, {
+    pattern = '*',
+    callback = function()
+      vim.opt.cmdheight = 1
+    end,
+  })
+  vim.api.nvim_create_autocmd('RecordingLeave', {
+    pattern = '*',
+    callback = function()
+      vim.opt.cmdheight = 0
+    end,
+  })
+  vim.api.nvim_create_autocmd('CmdlineLeave', {
+    pattern = '*',
+    callback = function()
+      if vim.fn.reg_recording() == '' then
+        vim.opt.cmdheight = 0
+      end
+    end,
+  })
+end)
+
 later(function()
   require('mini.diff').setup({
     view = {
