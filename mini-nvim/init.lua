@@ -273,7 +273,7 @@ later(function()
 end)
 
 later(function()
-  require('mini.surround').setup()
+  add('https://github.com/tpope/vim-surround.git')
 end)
 
 later(function()
