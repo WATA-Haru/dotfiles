@@ -113,28 +113,28 @@ now(function()
   vim.api.nvim_create_user_command(
     'Ex',
     function(opts)
-      local path = opts.args ~= "" and opts.args or nil
-      MiniFiles.open(path)
+      local path = opts.args ~= '' and opts.args or vim.api.nvim_buf_get_name(0)
+      MiniFiles.open(path, false)
     end,
     { desc = 'Open file explorer', nargs = "?" }
   )
   vim.api.nvim_create_user_command(
     'Ve',
     function(opts)
-      local path = opts.args ~= "" and opts.args or nil
+      local path = opts.args ~= '' and opts.args or vim.api.nvim_buf_get_name(0)
       vim.cmd('vertical leftabove new')
-      MiniFiles.open(path)
+      MiniFiles.open(path, false)
     end,
-    { desc = 'Vertical split and Open file exproler', nargs = "?" }
+    { desc = 'Vertical split and Open file explorer', nargs = "?" }
   )
   vim.api.nvim_create_user_command(
     'Se',
     function(opts)
-      local path = opts.args ~= "" and opts.args or nil
+      local path = opts.args ~= '' and opts.args or vim.api.nvim_buf_get_name(0)
       vim.cmd('leftabove new')
-      MiniFiles.open(path)
+      MiniFiles.open(path, false)
     end,
-    { desc = 'horizontal split and Open file exproler', nargs = "?"}
+    { desc = 'Horizontal split and Open file explorer', nargs = "?" }
   )
 
   vim.api.nvim_create_autocmd('User', {
