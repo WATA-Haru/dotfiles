@@ -348,3 +348,67 @@ later(function()
     { desc = 'Remove buffer' }
   )
 end)
+
+-- TODO: to be refactor
+local home_dir = os.getenv("HOME")
+
+now(function()
+  local lua_ex_path = home_dir .. '/.local/share/mise/installs/lua-language-server/3.17.1/bin/lua-language-server'
+
+  vim.diagnostic.config({
+    virtual_text = true
+  })
+  vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+      local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
+      vim.keymap.set('n', 'gd', function()
+        vim.lsp.buf.definition()
+      end, { buffer = args.buf, desc = 'vim.lsp.buf.definition()' })
+
+      vim.keymap.set('n', '<space>i', function()
+        local buf = vim.api.nvim_get_current_buf()
+        local formatters = vim.lsp.get_clients({ bufnr = buf, method = 'textDocument/formatting' })
+        if #formatters == 0 then
+          vim.notify('No matching language-server (formatting)', vim.log.levels.WARN)
+          return
+        end
+        vim.lsp.buf.format({ bufnr = buf })
+      end, { buffer = args.buf, desc = 'Format buffer' })
+    end,
+  })
+  vim.lsp.config('*', {
+    root_markers = { '.git' },
+  })
+  vim.lsp.config('lua_ls', {
+    cmd = { lua_ex_path },
+    filetypes = { 'lua' },
+    on_init = function(client)
+      if client.workspace_folders then
+        local path = client.workspace_folders[1].name
+        if path ~= vim.fn.stdpath('config') and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc')) then
+          return
+        end
+      end
+      client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+        runtime = { version = 'LuaJIT' },
+        workspace = {
+          checkThirdParty = false,
+          library = vim.list_extend(vim.api.nvim_get_runtime_file('lua', true), {
+            '${3rd}/luv/library',
+            '${3rd}/busted/library',
+          }),
+        }
+      })
+    end,
+    settings = {
+      Lua = {
+        format = { enable = true },
+        diagnostics = {
+          unusedLocalExclude = { '_*' }
+        }
+      },
+    }
+  })
+  vim.lsp.enable('lua_ls')
+end)
