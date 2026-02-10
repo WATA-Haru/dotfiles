@@ -333,3 +333,6 @@ later(function()
   })
 end)
 
+later(function()
+  require('mini.tabline').setup()
+end)
