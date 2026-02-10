@@ -36,8 +36,8 @@ vim.g.clipboard = {
 
 -- https://github.com/neovim/neovim/discussions/29350#discussioncomment-10299517
 if vim.env.TMUX ~= nil then
-  local copy = {'tmux', 'load-buffer', '-w', '-'}
-  local paste = {'bash', '-c', 'tmux refresh-client -l && sleep 0.05 && tmux save-buffer -'}
+  local copy = { 'tmux', 'load-buffer', '-w', '-' }
+  local paste = { 'bash', '-c', 'tmux refresh-client -l && sleep 0.05 && tmux save-buffer -' }
   vim.g.clipboard = {
     name = 'tmux',
     copy = {
@@ -81,9 +81,9 @@ end)
 
 now(function()
   require('mini.files').setup({
-      options = {
-          use_as_default_explorer = true,
-      }
+    options = {
+      use_as_default_explorer = true,
+    }
   })
 
   local minifiles_toggle = function(...)
@@ -91,24 +91,24 @@ now(function()
   end
 
   local map_split = function(buf_id, lhs, direction)
-  local rhs = function()
-    -- Make new window and set it as target
-    local cur_target = MiniFiles.get_explorer_state().target_window
-    local new_target = vim.api.nvim_win_call(cur_target, function()
-      vim.cmd(direction .. ' split')
-      return vim.api.nvim_get_current_win()
-    end)
+    local rhs = function()
+      -- Make new window and set it as target
+      local cur_target = MiniFiles.get_explorer_state().target_window
+      local new_target = vim.api.nvim_win_call(cur_target, function()
+        vim.cmd(direction .. ' split')
+        return vim.api.nvim_get_current_win()
+      end)
 
-    MiniFiles.set_target_window(new_target)
+      MiniFiles.set_target_window(new_target)
 
-    -- This intentionally doesn't act on file under cursor in favor of
-    -- explicit "go in" action (`l` / `L`). To immediately open file,
-    -- add appropriate `MiniFiles.go_in()` call instead of this comment.
-  end
+      -- This intentionally doesn't act on file under cursor in favor of
+      -- explicit "go in" action (`l` / `L`). To immediately open file,
+      -- add appropriate `MiniFiles.go_in()` call instead of this comment.
+    end
 
-  -- Adding `desc` will result into `show_help` entries
-  local desc = 'Split ' .. direction
-  vim.keymap.set('n', lhs, rhs, { buffer = buf_id, desc = desc })
+    -- Adding `desc` will result into `show_help` entries
+    local desc = 'Split ' .. direction
+    vim.keymap.set('n', lhs, rhs, { buffer = buf_id, desc = desc })
   end
   vim.api.nvim_create_user_command(
     'Ex',
@@ -199,8 +199,8 @@ later(function()
 end)
 
 -- colorize specific word and color code
-vim.api.nvim_set_hl(0, 'TodoKeyword',{ bg = '', fg='#e00e10', bold = true })
-vim.api.nvim_set_hl(0, 'FixMeKeyword',{ bg = '', fg='#FF6200', bold = true })
+vim.api.nvim_set_hl(0, 'TodoKeyword', { bg = '', fg = '#e00e10', bold = true })
+vim.api.nvim_set_hl(0, 'FixMeKeyword', { bg = '', fg = '#FF6200', bold = true })
 vim.api.nvim_set_hl(0, 'WipKeyword', { bg = '', fg = '#9900dd', bold = true })
 vim.api.nvim_set_hl(0, 'HackKeyword', { bg = '#FFC800', fg = '#ffffff', bold = true })
 vim.api.nvim_set_hl(0, 'NoteKeyword', { bg = '', fg = '#45B7D1', bold = true })
