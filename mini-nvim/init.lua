@@ -14,6 +14,7 @@ vim.opt.background = "light"
 local map = vim.api.nvim_set_keymap
 vim.g.mapleader = ' '
 map('i', 'jk', '<Esc>', { noremap = true })
+map('n', 'gb', '<C-t>', { desc = 'go back' })
 
 local function paste()
   return {
