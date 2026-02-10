@@ -271,3 +271,7 @@ later(function()
     },
   })
 end)
+
+later(function()
+  require('mini.surround').setup()
+end)
