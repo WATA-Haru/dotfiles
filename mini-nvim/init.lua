@@ -245,3 +245,11 @@ later(function()
   )
 end)
 
+now(function()
+  local starter = require('mini.starter')
+  starter.setup({
+    items = {
+      starter.sections.recent_files(5, false, true)
+    }
+  })
+end)
