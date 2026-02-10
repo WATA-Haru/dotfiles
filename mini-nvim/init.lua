@@ -283,3 +283,16 @@ vim.keymap.set('x', 'S', [[:<C-u>lua MiniSurround.add('visual')<CR>]], { silent 
 -- Make special mapping for "add surrounding for line"
 vim.keymap.set('n', 'yss', 'ys_', { remap = true })
 
+later(function()
+  local gen_ai_spec = require('mini.extra').gen_ai_spec
+  require('mini.ai').setup({
+    custom_textobjects = {
+      B = gen_ai_spec.buffer(),
+      D = gen_ai_spec.diagnostic(),
+      I = gen_ai_spec.indent(),
+      L = gen_ai_spec.line(),
+      N = gen_ai_spec.number(),
+      J = { { '()%d%d%d%d%-%d%d%-%d%d()', '()%d%d%d%d%/%d%d%/%d%d()' } }
+    },
+  })
+end)
