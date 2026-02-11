@@ -573,8 +573,8 @@ later(function()
   local animate = require('mini.animate')
   animate.setup({
     cursor = {
-      -- Animate for 100 milliseconds with linear easing
-      timing = animate.gen_timing.linear({ duration = 100, unit = 'total' }),
+       -- because Go Definition lsp to be slowly
+      enable = false,
     },
     scroll = {
       -- Animate for 150 milliseconds with linear easing
