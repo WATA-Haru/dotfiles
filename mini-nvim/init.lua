@@ -1,3 +1,6 @@
+-- cache init.lua
+vim.loader.enable()
+
 require('user_command')
 require('lsp')
 require('bool_fn')
@@ -618,3 +621,4 @@ later(function()
   vim.keymap.set('n', 'mms', MiniMap.toggle_side, { desc = 'MiniMap.toggle_side' })
   vim.keymap.set('n', 'mmt', MiniMap.toggle, { desc = 'MiniMap.toggle' })
 end)
+
