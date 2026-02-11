@@ -591,3 +591,9 @@ later(function()
     },
   })
 end)
+
+later(function ()
+  require('mini.jump2d').setup()
+end)
+
+
