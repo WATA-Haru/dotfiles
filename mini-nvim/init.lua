@@ -182,6 +182,12 @@ later(function()
 end)
 
 later(function()
+  require('mini.git').setup()
+
+  vim.keymap.set({ 'n', 'x' }, '<space>gs', MiniGit.show_at_cursor, { desc = 'Show at cursor' })
+end)
+
+later(function()
   add('https://github.com/vim-jp/vimdoc-ja')
   -- Prefer Japanese as the help language
   vim.opt.helplang:prepend('ja')
