@@ -22,6 +22,11 @@ vim.g.mapleader = ' '
 map('i', 'jk', '<Esc>', { noremap = true })
 map('n', 'gb', '<C-t>', { desc = 'go back' })
 
+-- black hole register "- remap
+-- https://blog.atusy.net/2025/08/08/map-minus-to-blackhole-register/
+map('n', '-', '"_', { desc = 'black hole register' })
+map('x', '-', '"_', { desc = 'black hole register' })
+
 -- https://vim-jp.org/vim-users-jp/2011/02/20/Hack-202.html
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = '*',
