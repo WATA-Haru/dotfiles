@@ -622,3 +622,46 @@ later(function()
   vim.keymap.set('n', 'mmt', MiniMap.toggle, { desc = 'MiniMap.toggle' })
 end)
 
+-- treesitter does not support lazy-loading (https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#installation)
+now(function()
+  -- https://zenn.dev/kawarimidoll/articles/18ee967072def7
+  -- avoid error
+  vim.treesitter.start = (function(wrapped)
+    return function(bufnr, lang)
+      lang = lang or vim.fn.getbufvar(bufnr or '', '&filetype')
+      pcall(wrapped, bufnr, lang)
+    end
+  end)(vim.treesitter.start)
+
+  add({
+    source = 'https://github.com/nvim-treesitter/nvim-treesitter',
+    hooks = {
+      post_checkout = function()
+        vim.cmd.TSUpdate()
+      end
+    },
+  })
+  -- https://github.com/nvim-treesitter/nvim-treesitter/blob/main/doc/nvim-treesitter.txt
+  require('nvim-treesitter').setup()
+  require('nvim-treesitter').install({ 'lua', 'vim', 'vue', 'ts' })
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = { 'lua', 'vim', 'vue', 'ts' },
+    callback = function()
+      -- syntax highlighting, provided by Neovim
+      vim.treesitter.start()
+      -- folds, provided by Neovim
+      -- vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      -- vim.wo.foldmethod = 'expr'
+      -- indentation, provided by nvim-treesitter
+      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end,
+  })
+end)
+
+later(function()
+  add({
+    source = 'https://github.com/JoosepAlviste/nvim-ts-context-commentstring',
+    depends = { 'nvim-treesitter/nvim-treesitter' },
+  })
+  require('ts_context_commentstring').setup({})
+end)
