@@ -584,3 +584,10 @@ later(function()
   vim.keymap.set('n', 'RR', 'R', { desc = 'Replace mode' })
 end)
 
+later(function()
+  require('mini.jump').setup({
+    delay = {
+      idle_stop = 10,
+    },
+  })
+end)
