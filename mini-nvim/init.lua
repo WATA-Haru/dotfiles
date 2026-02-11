@@ -610,3 +610,7 @@ later(function()
   })
 end)
 
+later(function()
+  require('mini.bracketed').setup()
+end)
+
