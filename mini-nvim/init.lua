@@ -239,11 +239,40 @@ later(function()
   )
 end)
 
+-- NOTE: set before mini.starter
+now(function()
+  require('mini.sessions').setup()
+
+  local function is_blank(arg)
+    return arg == nil or arg == ''
+  end
+  local function get_sessions(lead)
+    -- ref: https://qiita.com/delphinus/items/2c993527df40c9ebaea7
+    return vim
+      .iter(vim.fs.dir(MiniSessions.config.directory))
+      :map(function(v)
+        local name = vim.fn.fnamemodify(v, ':t:r')
+        return vim.startswith(name, lead) and name or nil
+      end)
+      :totable()
+  end
+  vim.api.nvim_create_user_command('SessionWrite', function(arg)
+    local session_name = is_blank(arg.args) and vim.v.this_session or arg.args
+    if is_blank(session_name) then
+      vim.notify('No session name specified', vim.log.levels.WARN)
+      return
+    end
+    vim.cmd('%argdelete')
+    MiniSessions.write(session_name)
+  end, { desc = 'Write session', nargs = '?', complete = get_sessions })
+end)
+
 now(function()
   local starter = require('mini.starter')
   starter.setup({
     items = {
-      starter.sections.recent_files(5, false, true)
+      starter.sections.recent_files(5, false, true),
+      starter.sections.sessions(5, true)
     }
   })
 end)
