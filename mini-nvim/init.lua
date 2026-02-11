@@ -16,13 +16,6 @@ vim.g.mapleader = ' '
 map('i', 'jk', '<Esc>', { noremap = true })
 map('n', 'gb', '<C-t>', { desc = 'go back' })
 
-local function paste()
-  return {
-    vim.fn.split(vim.fn.getreg(""), "\n"),
-    vim.fn.getregtype(""),
-  }
-end
-
 vim.g.clipboard = {
   name = 'OSC 52',
   copy = {
