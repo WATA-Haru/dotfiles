@@ -574,3 +574,13 @@ later(function()
     return 'h'
   end, { expr = true, desc = 'mini.pick.help' })
 end)
+
+later(function()
+  require('mini.operators').setup({
+    replace = { prefix = 'R' },
+    exchange = { prefix = '/' },
+  })
+
+  vim.keymap.set('n', 'RR', 'R', { desc = 'Replace mode' })
+end)
+
