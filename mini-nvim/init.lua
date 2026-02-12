@@ -643,9 +643,9 @@ now(function()
   })
   -- https://github.com/nvim-treesitter/nvim-treesitter/blob/main/doc/nvim-treesitter.txt
   require('nvim-treesitter').setup()
-  require('nvim-treesitter').install({ 'lua', 'vim', 'vue', 'ts' })
+  require('nvim-treesitter').install({ 'lua', 'vim', 'vue', 'typescript' })
   vim.api.nvim_create_autocmd('FileType', {
-    pattern = { 'lua', 'vim', 'vue', 'ts' },
+    pattern = { 'lua', 'vim', 'vue', 'typescript' },
     callback = function()
       -- syntax highlighting, provided by Neovim
       vim.treesitter.start()
