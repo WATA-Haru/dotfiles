@@ -33,6 +33,41 @@ vim.lsp.config('*', {
   root_markers = { '.git' },
 })
 
-local lua_ls_opts = require('lsp.lua_ls')
-vim.lsp.config('lua_ls', lua_ls_opts)
-vim.lsp.enable('lua_ls')
+local dirname = vim.fn.stdpath('config') .. '/lua/lsp'
+local lsp_names = {}
+local lsp_name_set = {}
+
+local function is_empty(tbl)
+  return type(tbl) ~= 'table' or next(tbl) == nil
+end
+
+local function add_lsp(name, cfg)
+  if is_empty(cfg) then
+    return
+  end
+  if not lsp_name_set[name] then
+    vim.lsp.config(name, cfg)
+    table.insert(lsp_names, name)
+    lsp_name_set[name] = true
+  end
+end
+
+for file, ftype in vim.fs.dir(dirname) do
+  if ftype == 'file' and vim.endswith(file, '.lua') and file ~= 'init.lua' then
+    local lsp_name = file:sub(1, -5)
+    local ok, result = pcall(require, 'lsp.' .. lsp_name)
+    if ok and type(result) == 'table' then
+      if result.cmd or result.filetypes or result.settings or result.root_markers or result.on_init then
+        add_lsp(lsp_name, result)
+      else
+        for name, cfg in pairs(result) do
+          add_lsp(name, cfg)
+        end
+      end
+    end
+  end
+end
+
+if #lsp_names > 0 then
+  vim.lsp.enable(lsp_names)
+end
