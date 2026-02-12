@@ -665,3 +665,8 @@ later(function()
   })
   require('ts_context_commentstring').setup({})
 end)
+
+now(function()
+  local starter = require('mini.cmdline').setup({})
+end)
+
