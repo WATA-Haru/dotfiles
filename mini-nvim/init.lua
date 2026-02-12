@@ -166,7 +166,7 @@ now(function()
       local path = opts.args ~= '' and opts.args or vim.api.nvim_buf_get_name(0)
       MiniFiles.open(path, false)
     end,
-    { desc = 'Open file explorer', nargs = "?" }
+    { desc = 'Open file explorer', nargs = "?", complete = "file" }
   )
   vim.api.nvim_create_user_command(
     'Ve',
@@ -175,7 +175,7 @@ now(function()
       vim.cmd('vertical leftabove new')
       MiniFiles.open(path, false)
     end,
-    { desc = 'Vertical split and Open file explorer', nargs = "?" }
+    { desc = 'Vertical split and Open file explorer', nargs = "?", complete = "file" }
   )
   vim.api.nvim_create_user_command(
     'Se',
@@ -184,7 +184,7 @@ now(function()
       vim.cmd('leftabove new')
       MiniFiles.open(path, false)
     end,
-    { desc = 'Horizontal split and Open file explorer', nargs = "?" }
+    { desc = 'Horizontal split and Open file explorer', nargs = "?", complete = "file" }
   )
 
   vim.api.nvim_create_autocmd('User', {
