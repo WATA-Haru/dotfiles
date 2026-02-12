@@ -56,7 +56,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   desc = 'Auto mkdir to save file'
 })
 
--- if you want to share clipboard set paste to 'pbpaste'
 if vim.bool_fn.has('mac') then
   vim.g.clipboard = {
     name = 'mac',
@@ -65,8 +64,8 @@ if vim.bool_fn.has('mac') then
       ['*'] = 'pbcopy',
     },
     paste = {
-      ['+'] = none,
-      ['*'] = none,
+      ['+'] = 'pbpaste',
+      ['*'] = 'pbpaste',
     },
   }
 end
