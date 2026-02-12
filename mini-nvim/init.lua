@@ -546,11 +546,11 @@ later(function()
     { desc = 'mini.pick.files' })
 
   -- fuzzy finder
-  vim.keymap.set('n', '<space>fg',
-    function()
-      MiniPick.builtin.grep_live({ tool = 'git' })
-    end,
-    { desc = 'mini.pick.grep_live' })
+  --vim.keymap.set('n', '<space>fg',
+  --  function()
+  --    MiniPick.builtin.grep_live({ tool = 'git' })
+  --  end,
+  --  { desc = 'mini.pick.grep_live' })
 
   -- buffer
   vim.keymap.set('n', '<space>fb', function()
@@ -584,7 +584,7 @@ later(function()
 
   local fzf = require("fzf-lua")
   fzf.setup({})
-  vim.keymap.set('n', 'fg', function()
+  vim.keymap.set('n', '<space>fg', function()
     fzf.live_grep()
   end, { desc = 'fzf live_grep' })
 end)
@@ -613,7 +613,7 @@ later(function()
   local animate = require('mini.animate')
   animate.setup({
     cursor = {
-       -- because Go Definition lsp to be slowly
+      -- because Go Definition lsp to be slowly
       enable = false,
     },
     scroll = {
@@ -626,8 +626,8 @@ later(function()
   local scroll_without_animate = function(key)
     local old = vim.g.minianimate_disable
     vim.g.minianimate_disable = true -- Global flag to disable mini.animate effects
-    vim.cmd('normal! ' .. key) -- Execute key in normal mode ('!' ignores user mappings)
-    vim.schedule(function() -- Defer restore to next event loop to ensure scroll completes
+    vim.cmd('normal! ' .. key)       -- Execute key in normal mode ('!' ignores user mappings)
+    vim.schedule(function()          -- Defer restore to next event loop to ensure scroll completes
       vim.g.minianimate_disable = old
     end)
   end
@@ -724,4 +724,3 @@ end)
 now(function()
   local starter = require('mini.cmdline').setup({})
 end)
-
