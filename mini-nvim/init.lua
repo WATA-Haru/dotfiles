@@ -545,6 +545,13 @@ later(function()
     end,
     { desc = 'mini.pick.files' })
 
+  -- fuzzy finder
+  vim.keymap.set('n', '<space>fg',
+    function()
+      MiniPick.builtin.grep_live({ tool = 'git' })
+    end,
+    { desc = 'mini.pick.grep_live' })
+
   -- buffer
   vim.keymap.set('n', '<space>fb', function()
     local wipeout_cur = function()
