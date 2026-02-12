@@ -696,16 +696,18 @@ now(function()
   })
   -- https://github.com/nvim-treesitter/nvim-treesitter/blob/main/doc/nvim-treesitter.txt
   require('nvim-treesitter').setup()
-  require('nvim-treesitter').install({ 'lua', 'vim', 'vue', 'typescript' })
+  require('nvim-treesitter').install({ 'lua', 'vim', 'vue', 'typescript', 'typescriptreact' })
   vim.api.nvim_create_autocmd('FileType', {
-    pattern = { 'lua', 'vim', 'vue', 'typescript' },
+    pattern = { 'lua', 'vim' },
     callback = function()
       -- syntax highlighting, provided by Neovim
       vim.treesitter.start()
-      -- folds, provided by Neovim
-      -- vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-      -- vim.wo.foldmethod = 'expr'
-      -- indentation, provided by nvim-treesitter
+    end,
+  })
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = { 'vue', 'typescript', 'typescriptreact' },
+    callback = function()
+      vim.treesitter.start()
       vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
     end,
   })
