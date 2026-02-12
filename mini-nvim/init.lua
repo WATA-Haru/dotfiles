@@ -56,34 +56,36 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   desc = 'Auto mkdir to save file'
 })
 
-vim.g.clipboard = {
-  name = 'OSC 52',
-  copy = {
-    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
-    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
-  },
-  paste = {
-    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
-  },
-}
-
--- https://github.com/neovim/neovim/discussions/29350#discussioncomment-10299517
-if vim.env.TMUX ~= nil then
-  local copy = { 'tmux', 'load-buffer', '-w', '-' }
-  local paste = { 'bash', '-c', 'tmux refresh-client -l && sleep 0.05 && tmux save-buffer -' }
+if vim.bool_fn.has('linux') then
   vim.g.clipboard = {
-    name = 'tmux',
+    name = 'OSC 52',
     copy = {
-      ['+'] = copy,
-      ['*'] = copy,
+      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
     },
     paste = {
-      ['+'] = paste,
-      ['*'] = paste,
+      ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
     },
-    cache_enabled = 0,
   }
+
+  -- https://github.com/neovim/neovim/discussions/29350#discussioncomment-10299517
+  if vim.env.TMUX ~= nil then
+    local copy = { 'tmux', 'load-buffer', '-w', '-' }
+    local paste = { 'bash', '-c', 'tmux refresh-client -l && sleep 0.05 && tmux save-buffer -' }
+    vim.g.clipboard = {
+      name = 'tmux',
+      copy = {
+        ['+'] = copy,
+        ['*'] = copy,
+      },
+      paste = {
+        ['+'] = paste,
+        ['*'] = paste,
+      },
+      cache_enabled = 0,
+    }
+  end
 end
 
 -- Clone 'mini.nvim' manually in a way that it gets managed by 'mini.deps'
