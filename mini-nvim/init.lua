@@ -577,6 +577,19 @@ later(function()
 end)
 
 later(function()
+  add({
+    source = 'https://github.com/ibhagwan/fzf-lua',
+    depends = { 'nvim-mini/mini.icons' },
+  })
+
+  local fzf = require("fzf-lua")
+  fzf.setup({})
+  vim.keymap.set('n', 'fg', function()
+    fzf.live_grep()
+  end, { desc = 'fzf live_grep' })
+end)
+
+later(function()
   require('mini.operators').setup({
     replace = { prefix = 'R' },
   })
