@@ -79,15 +79,15 @@ if vim.bool_fn.has('linux') then
       ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
     },
     paste = {
-      ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-      ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+      ['+'] = none,
+      ['*'] = none,
     },
   }
 
   -- https://github.com/neovim/neovim/discussions/29350#discussioncomment-10299517
   if vim.env.TMUX ~= nil then
     local copy = { 'tmux', 'load-buffer', '-w', '-' }
-    local paste = { 'bash', '-c', 'tmux refresh-client -l && sleep 0.05 && tmux save-buffer -' }
+    -- local paste = { 'bash', '-c', 'tmux refresh-client -l && sleep 0.05 && tmux save-buffer -' }
     vim.g.clipboard = {
       name = 'tmux',
       copy = {
@@ -95,8 +95,8 @@ if vim.bool_fn.has('linux') then
         ['*'] = copy,
       },
       paste = {
-        ['+'] = paste,
-        ['*'] = paste,
+        ['+'] = none,
+        ['*'] = none,
       },
       cache_enabled = 0,
     }
