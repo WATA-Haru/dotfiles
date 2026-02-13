@@ -696,16 +696,17 @@ now(function()
   })
   -- https://github.com/nvim-treesitter/nvim-treesitter/blob/main/doc/nvim-treesitter.txt
   require('nvim-treesitter').setup()
-  require('nvim-treesitter').install({ 'lua', 'vim', 'vue', 'typescript', 'typescriptreact' })
+  require('nvim-treesitter').install({ 'lua', 'vim', 'vue', 'typescript', 'tsx' })
   vim.api.nvim_create_autocmd('FileType', {
     pattern = { 'lua', 'vim' },
     callback = function()
       -- syntax highlighting, provided by Neovim
       vim.treesitter.start()
+      -- NOTE: disable indentexpr because It does not work well.
     end,
   })
   vim.api.nvim_create_autocmd('FileType', {
-    pattern = { 'vue', 'typescript', 'typescriptreact' },
+    pattern = { 'vue', 'typescript', 'tsx' },
     callback = function()
       vim.treesitter.start()
       vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
