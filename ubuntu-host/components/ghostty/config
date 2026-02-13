@@ -53,7 +53,7 @@ theme=Iceberg Light
 font-feature = "-calt"
 font-feature = "-dlig"
 font-feature = "-liga"
-font-size=11.5
+font-size=10.3
 
 # カーソルはblockで点滅させない
 cursor-style=block
