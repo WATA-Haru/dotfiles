@@ -64,3 +64,5 @@ mouse-hide-while-typing
 
 keybind = performable:ctrl+c=copy_to_clipboard
 keybind = ctrl+v=paste_from_clipboard
+
+cursor-color = "#8060FF"

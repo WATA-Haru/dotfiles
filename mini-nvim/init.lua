@@ -702,7 +702,7 @@ now(function()
     callback = function()
       -- syntax highlighting, provided by Neovim
       vim.treesitter.start()
-      -- NOTE: disable indentexpr because It does not work well.
+      -- NOTE: disable indentexpr because It does not work well
     end,
   })
   vim.api.nvim_create_autocmd('FileType', {
