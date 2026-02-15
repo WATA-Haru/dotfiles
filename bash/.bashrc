@@ -120,11 +120,6 @@ fi
 export LC_TIME=C
 export LC_MESSAGES=C
 
-# aqua path
-# export PATH="${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH"
-# TODO Tmp aqua path, rename it
-# export AQUA_GLOBAL_CONFIG=~/dotfiles/ubuntu/aquaproj-aqua/aqua.yaml
-
 eval "$(~/.local/bin/mise activate bash)"
 
 alias n="NVIM_APPNAME=mini-nvim nvim"
