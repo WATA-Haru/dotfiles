@@ -91,6 +91,9 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias lla='ls -la'
+alias gs='git status'
+alias c='clear'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -124,3 +127,44 @@ eval "$(~/.local/bin/mise activate bash)"
 
 alias n="NVIM_APPNAME=mini-nvim nvim"
 export EDITOR=nvim
+
+eval "$(sheldon source)"
+eval "$(fzf --bash)"
+
+# ghq + fzf
+# https://zenn.dev/shunk031/articles/ghq-gwq-fzf-worktree#%E2%80%9C%E7%A7%BB%E5%8B%95%E2%80%9D-%E3%82%92%E4%BD%9C%E3%82%8B%EF%BC%9Aghq-%2B-fzf-%E3%81%A7-dev-%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%82%92%E6%8C%81%E3%81%A4
+function ghq-path() {
+    ghq list --full-path | fzf
+}
+
+function dev() {
+    local moveto
+    moveto=$(ghq-path)
+    cd "${moveto}" || exit 1
+
+    # rename session if in tmux
+    if [[ -n ${TMUX} ]]; then
+        local repo_name
+        repo_name="${moveto##*/}"
+
+        tmux rename-session "${repo_name//./-}"
+    fi
+}
+
+# prompt
+function _current_branch() {
+    _git_branch=$(git branch --show-current 2>/dev/null) && echo "[$_git_branch] "
+}
+export PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] $(_current_branch)\$ '
+
+set -o vi
+source -- ~/.local/share/blesh/ble.sh
+
+# https://qiita.com/piroor/items/7c9380e408d07fd83bfc
+function share_history {
+  history -a
+  history -c
+  history -r
+}
+PROMPT_COMMAND='share_history'
+shopt -u histappend
