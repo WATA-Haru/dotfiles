@@ -14,3 +14,11 @@ sudo flatpak install flathub net.mkiol.SpeechNote
 ## brave
 curl -fsS https://dl.brave.com/install.sh | sh
 
+
+## openssl
+sudo apt install openssl
+sudo apt install libssl-dev
+sudo apt install gawk # for ble.sh
+sudo apt install tig
+sudo snap install yazi --classic
+
