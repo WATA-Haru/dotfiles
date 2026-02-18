@@ -5,9 +5,6 @@ rust = "latest"
 
 # npm
 "npm:@devcontainers/cli" = "latest"
-
-# aqua
-"aqua:junegunn/fzf" = "latest"
 "aqua:cli/cli" = "latest"
 "aqua:sharkdp/bat" = "latest"
 "aqua:sharkdp/fd" = "latest"
@@ -15,4 +12,5 @@ rust = "latest"
 "aqua:openai/codex" = "latest"
 "aqua:neovim/neovim" = "latest"
 "aqua:x-motemen/ghq" = "latest"
+fzf = "latest"
 
