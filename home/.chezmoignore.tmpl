@@ -1,6 +1,6 @@
 {{- $isDevContainer := eq (env "REMOTE_CONTAINERS") "true" -}}
-{{- $isUbuntu := eq chezmoi.os "ubuntu" -}}
-{{- $isDarwin := eq chezmoi.os "darwin" -}}
+{{- $isUbuntu := eq .chezmoi.os "ubuntu" -}}
+{{- $isDarwin := eq .chezmoi.os "darwin" -}}
 
 # host (not devcontainers) + ubuntu
 {{- if and (not $isDevContainer) $isUbuntu -}}

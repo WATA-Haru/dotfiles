@@ -1,6 +1,6 @@
 {{- $isDevContainer := eq (env "REMOTE_CONTAINERS") "true" -}}
-{{- $isUbuntu := eq chezmoi.os "ubuntu" -}}
-{{- $isDarwin := eq chezmoi.os "darwin" -}}
+{{- $isUbuntu := eq .chezmoi.os "ubuntu" -}}
+{{- $isDarwin := eq .chezmoi.os "darwin" -}}
 
 # ref
 # https://qiita.com/genzouw/items/2f2f9d09581bba424035
