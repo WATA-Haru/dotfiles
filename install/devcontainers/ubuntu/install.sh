@@ -11,18 +11,18 @@ cd $HOME
 # ========================
 # === package managers ===
 # ========================
-$SUDO apt update
-$SUDO apt install curl lsb-release wget
-$SUDO apt install snapd
+$SUDO apt update -y
+$SUDO apt install -y curl lsb-release wget
+$SUDO apt install -y install snapd
 
 # =================
 # === daily use ===
 # =================
-$SUDO apt install openssl
-$SUDO apt install libssl-dev
-$SUDO apt install gawk # for ble.sh
-$SUDO apt install tig
-$SUDO snap install yazi --classic
+$SUDO apt install -y openssl
+$SUDO apt install -y libssl-dev
+$SUDO apt install -y gawk # for ble.sh
+$SUDO apt install -y tig
+$SUDO snap install -y yazi --classic
 
 # ============
 # === mise ===
