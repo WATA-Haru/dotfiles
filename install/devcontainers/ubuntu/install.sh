@@ -36,7 +36,7 @@ cd $HOME
 ## if fzf(mise) is already installed, cleate fzf symlink to mise binary
 git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
 cd $HOME/.fzf && git pull && ./install
-$HOME/.fzf/install
+$HOME/.fzf/install --all
 
 # ======================
 # === install ble.sh ===
