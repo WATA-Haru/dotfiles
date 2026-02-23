@@ -1,0 +1,34 @@
+{{- $isDevContainer := eq (env "REMOTE_CONTAINERS") "true" -}}
+{{- $isUbuntu := eq chezmoi.os "ubuntu" -}}
+{{- $isDarwin := eq chezmoi.os "darwin" -}}
+
+[tools]
+node = "24.13.0"
+python = "latest"
+rust = "latest"
+go = "latest"
+lua-language-server = "latest"
+
+# ---CLI Tools (npm)
+"npm:@devcontainers/cli" = "latest"
+"aqua:cli/cli" = "latest"
+"aqua:sharkdp/bat" = "latest"
+"aqua:sharkdp/fd" = "latest"
+"aqua:twpayne/chezmoi" = "latest"
+"aqua:openai/codex" = "latest"
+"aqua:neovim/neovim" = "latest"
+"aqua:x-motemen/ghq" = "latest"
+fzf = "latest"
+
+# --CLI Tools (go)
+"go:github.com/rhysd/vim-startuptime" = "latest"
+"go:github.com/d-kuro/gwq/cmd/gwq" = "latest"
+
+# --CLI Tools (rust)
+"cargo:sheldon" = "latest"
+
+# host only
+{{- if and (not $isDevContainer) -}}
+python = "latest"
+"npm:@devcontainers/cli" = "latest"
+{{- end -}}

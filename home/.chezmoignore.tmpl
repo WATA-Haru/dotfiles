@@ -1,0 +1,23 @@
+{{- $isDevContainer := eq (env "REMOTE_CONTAINERS") "true" -}}
+{{- $isUbuntu := eq chezmoi.os "ubuntu" -}}
+{{- $isDarwin := eq chezmoi.os "darwin" -}}
+
+# host (not devcontainers) + ubuntu
+{{- if and (not $isDevContainer) $isUbuntu -}}
+{{- end -}}
+
+# host (not devcontainers) + darwin
+{{- if and (not $isDevContainer) $isDarwin -}}
+*/fcitx5/
+{{- end -}}
+
+# devcontainers + ubuntu
+{{- if and $isDevContainer $isUbuntu -}}
+# exclude .gitconfig because devcontainer copies host `.gitconfig` automatically
+*/.gitconfig
+# exclude host only settings
+*/tmux
+*/fcitx5/
+*/ghostty/
+{{- end -}}
+
