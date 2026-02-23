@@ -46,14 +46,16 @@ git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyo
 make -C ble.sh install PREFIX=$HOME/.local
 # echo 'source -- ~/.local/share/blesh/ble.sh' >> ~/.bashrc
 
+# ===============
+# === chezmoi ===
+# ===============
+snap install chezmoi --classic
+chezmoi init
+chezmoi apply
+
 # =====================
 # === install tools ===
 # =====================
 mise install
 mise use
 
-# ===============
-# === chezmoi ===
-# ===============
-chezmoi init
-chezmoi apply

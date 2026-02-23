@@ -1,3 +1,4 @@
+snap install chezmoi --classic
 sudo apt install tig
 sudo snap install yazi --classic
 
