@@ -15,4 +15,4 @@ vim.opt.scrolloff = 3
 vim.opt.whichwrap = 'b,s,h,l,<,>,[,],~'
 
 vim.opt.background = "light"
-
+vim.o.termguicolors = true
