@@ -7,13 +7,14 @@ else
   SUDO=""
 fi
 
+DOTFILES_REPO="https://github.com/WATA-Haru/dotfiles.git"
+
 cd $HOME
 # ========================
 # === package managers ===
 # ========================
 $SUDO apt update -y
 $SUDO apt install -y curl lsb-release wget
-$SUDO apt install -y install snapd
 
 # =================
 # === daily use ===
@@ -22,7 +23,6 @@ $SUDO apt install -y openssl
 $SUDO apt install -y libssl-dev
 $SUDO apt install -y gawk # for ble.sh
 $SUDO apt install -y tig
-$SUDO snap install -y yazi --classic
 
 # ============
 # === mise ===
@@ -49,8 +49,9 @@ make -C ble.sh install PREFIX=$HOME/.local
 # ===============
 # === chezmoi ===
 # ===============
-snap install chezmoi --classic
-chezmoi init
+# snap cannot use in docker container
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin
+chezmoi init $DOTFILES_REPO
 chezmoi apply
 
 # =====================
