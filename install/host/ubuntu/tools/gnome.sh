@@ -1,5 +1,31 @@
-#!/bin/bash
+#========================
+#=== gnome tools install ===
+#========================
+sudo apt install gettext # gnome-clipboard building
+sudo apt install wl-clipboard # wl-clipboard for nvim
 
+#=============================
+#======== gnome extension cli Manually =========
+#=============================
+# gnome-extensions-cli:  https://github.com/essembeh/gnome-extensions-cli
+# kimpanelはinstallとenableできるが`extension-manager`で有効化ができないためGUIで別途設定
+# gnome-extensions-cli install kimpanel@kde.org
+
+# tiling-assistant https://github.com/Leleat/Tiling-Assistant/wiki/Active-Window-Hint
+gext install tiling-assistant@leleat-on-github
+gext enable tiling-assistant@leleat-on-github
+
+# clipboard-history
+cd ~/.local/share/gnome-shell/extensions/ && \
+  git clone https://github.com/SUPERCILEX/gnome-clipboard-history.git clipboard-history@alexsaveau.dev && \
+  cd clipboard-history@alexsaveau.dev && \
+  make
+gnome-extensions enable clipboard-history@alexsaveau.dev
+
+
+#=============================
+#======== gnome extension dock settings Manually =========
+#=============================
 # cf. https://namileriblog.com/linux/first-setting-ubuntu_2404/#i-20
 # cf. https://gihyo.jp/admin/serial/01/ubuntu-recipe/0541
 # cf. https://www.reddit.com/r/Ubuntu/comments/hfd8nv/mount_a_drive_but_prevent_it_from_showing_on_the/?tl=ja
@@ -40,5 +66,3 @@ gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
 # https://askubuntu.com/questions/1335398/ubuntu-21-04-remove-trash-user-and-drive-icon-from-desktop
 gsettings set org.gnome.shell.extensions.ding show-home false
 gsettings set org.gnome.shell.extensions.ding show-trash false
-
-

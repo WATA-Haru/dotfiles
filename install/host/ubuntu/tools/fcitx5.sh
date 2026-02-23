@@ -1,4 +1,3 @@
-#!bin/bash
 # cf. /ubuntu/.config/fcitx5/README.md
 ## fcitx5 packages
 sudo apt update
@@ -12,5 +11,3 @@ sudo apt install gnome-browser-connector
 ## shutdown required
 sudo shutdown -r now
 echo "shutdown required"
-// TODO: if statement
-sudo shutdown -r now

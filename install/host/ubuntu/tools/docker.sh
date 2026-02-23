@@ -1,4 +1,6 @@
-#!/bin/bash
+#========================
+#=== docker install manually ===
+#========================
 
 # docker and dev containers
 sudo apt remove $(dpkg --get-selections docker.io docker-compose docker-compose-v2 docker-doc podman-docker containerd runc | cut -f1)
@@ -40,3 +42,4 @@ rm docker-desktop-amd64.deb
 
 echo "you must initialize gpg key to login docker desktop"
 echo "https://docs.docker.com/desktop/setup/sign-in/#credentials-management-for-linux-users"
+

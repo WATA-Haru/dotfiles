@@ -1,13 +1,83 @@
-## ここに書くこと
+# Manually install required Memo
 
+CLIだけで設定できず、ユーザが対話的に設定しなければいけない項目とその手順をまとめる
+
+## 環境
+
+Ubuntu Desktop 24.04.3 LTS
+
+## 初期設定
+
+インストーラーの支持に従い、`autoinstall.yaml`を用いて設定
+`autoinstall.sample.yaml`を参照
+
+[autoinstall.yamlでUbuntu 24.04 LTSの初期設定を半自動化する](https://zenn.dev/bita/articles/3e75e55aefaa4c)
+
+## ホームディレクトリ配下のディレクトリを英語化
+日本語設定にしているとホームディレクトリ配下のディレクトリ名は「ドキュメント」、「ダウンロード」、「ミュージック」のようになっている。これを「Documents」、「Downloads」、「Music」のような英語のディレクトリ名に変更した。
+
+(参考)
+金子邦彦研究室 「Ubuntu: ユーザーディレクトリ名を標準の英語表記に変更する手順」
+https://www.kkaneko.jp/tools/server/gnome_user_dirs.html
+
+以下を`~/.bashrc`に追加
+```bash ~/.bashrc
+export LC_TIME=C
+export LC_MESSAGES=C
+```
+
+なお、他の`LC_*`の言語設定は`locale`コマンドで確認できる。
+```bash
+$> locale
+LANG=ja_JP.UTF-8
+LANGUAGE=
+LC_CTYPE="ja_JP.UTF-8"
+LC_NUMERIC="ja_JP.UTF-8"
+LC_TIME=C
+LC_COLLATE="ja_JP.UTF-8"
+LC_MONETARY="ja_JP.UTF-8"
+LC_MESSAGES=C
+LC_PAPER="ja_JP.UTF-8"
+LC_NAME="ja_JP.UTF-8"
+LC_ADDRESS="ja_JP.UTF-8"
+LC_TELEPHONE="ja_JP.UTF-8"
+LC_MEASUREMENT="ja_JP.UTF-8"
+LC_IDENTIFICATION="ja_JP.UTF-8"
+LC_ALL=
+```
+1. 以下のコマンドを実行
+```bash
+LANG=C LC_ALL=C xdg-user-dirs-gtk-update
+```
+2. ポップアップがでるので「Update Names」ボタンで更新
+3. Ubuntuからログアウトして設定を反映
+4. 再ログインすると再度ポップアップがでるので、古い名前のままにするを選択
+
+## PCに画面をオフにしてディスプレイだけに画面を表示する
+
+好みだが、外付けディスプレイを使うときにPCモニタをオフにしてディスプレイだけに画面を表示したかったのでその設定について書く
+GUIで設定する。
+
+1. 「設定」＞「ディスプレイ」を開く。
+2. 画面上部の「表示モード」で「拡張（Join Displays）」を選択。
+3. ディスプレイのリストから 「Built-in Display（内蔵ディスプレイ）」を選択。
+4. そのディスプレイのスイッチを 「オフ」 に切り替える。
+5. 「適用」を押す。
+
+## INFO: snap版で問題があったパッケージ
+obsidian
+- snap版は日本語入力が使えなかった
+slack
+- 毎回ログインを求められるようになったためdeb packageを使用
+brave
+- aptで入れるのに比べて、snap版で入れたほうが軽かった
+
+## 日本語入力 fcitx5の設定
 - fcitx5パッケージのインストール方法
 - Input Method Extension(kimpanel)の導入(手動)
 - fcitx5で独自に設定した項目の補足(Altでfcitx5切り替え、「アプリケーションにプリエディットを表示する」のoff)
 
-## fcitx5で日本語入力を設定
-
 以下のとおりにfcitx5を導入した
-
 金子邦彦研究室 「Ubuntu で日本語インプット・メソッド (Fcitx5 + Mozc) を設定する」 https://www.kkaneko.jp/tools/server/gnome_ja_input_method.html
 
 1. パッケージをインストール
@@ -53,8 +123,6 @@ sudo shutdown -r now
 ```bash
 sudo apt install gnome-browser-connector
 ```
-
-
 Shellの方でもextension-managerを使ってInput Method Panelを導入する。
 ```bash
 extension-manager
