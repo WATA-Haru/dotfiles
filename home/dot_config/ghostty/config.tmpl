@@ -8,7 +8,7 @@ cursor-style=block
 cursor-style-blink=false
 mouse-hide-while-typing
 
-{{ if eq .chezmoi.os "linux" }}
+{{ if eq .chezmoi.os "linux" -}}
 font-size=10.3
 keybind = performable:ctrl+c=copy_to_clipboard
 keybind = ctrl+v=paste_from_clipboard
@@ -16,5 +16,4 @@ cursor-color = "#8060FF"
 {{ else if eq .chezmoi.os "darwin"}}
 font-size=12.5
 cursor-color = "#8060FF"
-{{ end }}
-
+{{- end -}}

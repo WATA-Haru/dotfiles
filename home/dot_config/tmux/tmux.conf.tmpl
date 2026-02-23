@@ -81,8 +81,8 @@ set -sa terminal-overrides "*:Tc"
 set-option -sg escape-time 0
 set-option -g focus-events on
 
-{{- if $isDarwin -}}
+{{ if $isDarwin -}}
 # Use tmux clipboard with system clipboard (macOS example)
 bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "pbcopy"
 bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "pbcopy"
-{{ end }}
+{{- end -}}

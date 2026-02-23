@@ -3,16 +3,16 @@
 {{- $isDarwin := eq .chezmoi.os "darwin" -}}
 
 # host (not devcontainers) + ubuntu
-{{- if and (not $isDevContainer) $isUbuntu -}}
+{{ if and (not $isDevContainer) $isUbuntu -}}
 {{- end -}}
 
 # host (not devcontainers) + darwin
-{{- if and (not $isDevContainer) $isDarwin -}}
+{{ if and (not $isDevContainer) $isDarwin -}}
 */fcitx5/
 {{- end -}}
 
 # devcontainers + ubuntu
-{{- if and $isDevContainer $isUbuntu -}}
+{{ if and $isDevContainer $isUbuntu -}}
 # exclude .gitconfig because devcontainer copies host `.gitconfig` automatically
 */.gitconfig
 # exclude host only settings
@@ -20,4 +20,3 @@
 */fcitx5/
 */ghostty/
 {{- end -}}
-

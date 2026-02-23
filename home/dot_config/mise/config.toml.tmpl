@@ -27,8 +27,8 @@ fzf = "latest"
 # --CLI Tools (rust)
 "cargo:sheldon" = "latest"
 
+{{ if and (not $isDevContainer) -}}
 # host only
-{{ if and (not $isDevContainer) }}
 python = "latest"
 "npm:@devcontainers/cli" = "latest"
-{{ end }}
+{{- end -}}
