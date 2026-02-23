@@ -28,7 +28,7 @@ fzf = "latest"
 "cargo:sheldon" = "latest"
 
 # host only
-{{- if and (not $isDevContainer) -}}
+{{ if and (not $isDevContainer) }}
 python = "latest"
 "npm:@devcontainers/cli" = "latest"
-{{- end -}}
+{{ end }}
