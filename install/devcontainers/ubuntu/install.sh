@@ -35,7 +35,7 @@ curl https://mise.run | sh
 cd $HOME
 ## if fzf(mise) is already installed, cleate fzf symlink to mise binary
 git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
-cd $HOME/.fzf && git pull && ./install
+cd $HOME/.fzf && git pull
 $HOME/.fzf/install --all
 
 # ======================
