@@ -1,0 +1,88 @@
+{{- $isDevContainer := eq (env "REMOTE_CONTAINERS") "true" -}}
+{{- $isUbuntu := eq chezmoi.os "ubuntu" -}}
+{{- $isDarwin := eq chezmoi.os "darwin" -}}
+
+# ref
+# https://qiita.com/genzouw/items/2f2f9d09581bba424035
+# https://qiita.com/shin-ch13/items/9d207a70ccc8467f7bab
+
+# ========================
+# === default settings ===
+# ========================
+set-option -g default-shell /bin/bash
+set -g default-terminal "xterm-ghostty"
+
+# ====================
+# === Key settings ===
+# ====================
+# copy mode vi keymap
+setw -g mode-keys vi
+
+# Enable mouse support
+set-option -g mouse on
+bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M' 'copy-mode -e'"
+
+# prefix Ctrl + f
+set -g prefix C-f
+unbind C-b
+
+# tmux new-window or split-window in the current directory of the pane
+bind c new-window -c '#{pane_current_path}'
+bind | split-window -h -c '#{pane_current_path}'
+bind - split-window -v -c '#{pane_current_path}'
+
+# Vim-like key bindings for pane navigation
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# Vim-like key bindings for resizing panes
+bind -r H resize-pane -L 5
+bind -r J resize-pane -D 5
+bind -r K resize-pane -U 5
+bind -r L resize-pane -R 5
+
+# Vim-style key bindings for copy mode
+bind -T copy-mode-vi v send -X begin-selection
+bind -T copy-mode-vi V send -X select-line
+bind -T copy-mode-vi C-v send -X rectangle-toggle
+bind -T copy-mode-vi y send -X copy-selection
+bind -T copy-mode-vi Y send -X copy-line
+
+# ============================
+# === Status line settings ===
+# ============================
+set-option -g status-position top
+set-option -g status-justify centre
+set-option -g status-left-length 90
+set-option -g status-right-length 90
+set -g status-style "fg=color253,bold,bg=color104"
+
+# Display pane number and host in the left status bar
+set-option -g status-left '#H:[#P]'
+
+# Refresh status bar every second
+set-option -g status-interval 1
+
+# =============================
+# === sattus border setting ===
+# =============================
+set-option -g pane-border-style "fg=colour248,bold"
+set-option -g pane-active-border-style "fg=colour34,bold"
+
+# Set base index for windows and panes to 1
+set-option -g base-index 1
+
+# Enable tmux color schemes, if using specific plugins
+set -sa terminal-overrides "*:Tc"
+
+# For nvim checkhealth and smooth tmux experience
+set-option -sg escape-time 0
+set-option -g focus-events on
+
+{{- if $isDarwin -}}
+# Use tmux clipboard with system clipboard (macOS example)
+bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "pbcopy"
+bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "pbcopy"
+{{ end }}
