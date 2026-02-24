@@ -49,7 +49,7 @@ ActiveByDefault=False
 # 入力状態を共有する
 ShareInputState=All
 # アプリケーションにプリエディットを表示する
-PreeditEnabledByDefault=False
+PreeditEnabledByDefault=True
 # 入力メソッドを切り替える際に入力メソッドの情報を表示する
 ShowInputMethodInformation=False
 # フォーカスを変更する際に入力メソッドの情報を表示する
