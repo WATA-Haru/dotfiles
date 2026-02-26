@@ -17,5 +17,5 @@ chezmoi apply
 mise install
 
 echo "===================="
-echo "please exec ~.bashrc"
+echo "please exec source ~/.bashrc"
 echo "===================="
