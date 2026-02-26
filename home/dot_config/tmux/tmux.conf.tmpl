@@ -11,9 +11,9 @@
 # ========================
 set-option -g default-shell /bin/bash
 
-{{ if $isDevContainer-}}
+{{ if $isDevContainer -}}
 set -g default-terminal "xterm-256color"
-{{ else }}
+{{- else -}}
 set -g default-terminal "xterm-ghostty"
 {{- end -}}
 
