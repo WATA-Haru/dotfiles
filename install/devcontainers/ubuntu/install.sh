@@ -7,14 +7,12 @@ else
   SUDO=""
 fi
 
-DOTFILES_REPO="https://github.com/WATA-Haru/dotfiles.git"
-
 cd $HOME
 # ========================
 # === package managers ===
 # ========================
 $SUDO apt update -y
-$SUDO apt install -y curl lsb-release wget
+$SUDO apt install -y curl lsb-release wget tmux
 
 # =================
 # === daily use ===
@@ -45,18 +43,4 @@ cd $HOME
 git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git
 make -C ble.sh install PREFIX=$HOME/.local
 # echo 'source -- ~/.local/share/blesh/ble.sh' >> ~/.bashrc
-
-# ===============
-# === chezmoi ===
-# ===============
-# snap cannot use in docker container
-sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin
-chezmoi init $DOTFILES_REPO
-chezmoi apply
-
-# =====================
-# === install tools ===
-# =====================
-mise install
-mise use
 
