@@ -14,5 +14,5 @@ chezmoi apply
 # === install tools ===
 # =====================
 mise install
-mise use
+source ~/.bashrc
 

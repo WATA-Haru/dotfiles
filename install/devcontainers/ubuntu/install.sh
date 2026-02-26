@@ -12,7 +12,7 @@ cd $HOME
 # === package managers ===
 # ========================
 $SUDO apt update -y
-$SUDO apt install -y curl lsb-release wget tmux
+$SUDO apt install -y curl lsb-release wget tmux pkg-config libssl-dev
 
 # =================
 # === daily use ===
