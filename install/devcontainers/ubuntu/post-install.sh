@@ -15,5 +15,7 @@ chezmoi apply
 # === install tools ===
 # =====================
 mise install
-source ~/.bashrc
 
+echo "===================="
+echo "please exec ~.bashrc"
+echo "===================="
