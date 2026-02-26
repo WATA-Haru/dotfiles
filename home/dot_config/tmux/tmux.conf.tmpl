@@ -10,12 +10,11 @@
 # === default settings ===
 # ========================
 set-option -g default-shell /bin/bash
-
 {{ if $isDevContainer -}}
 set -g default-terminal "xterm-256color"
 {{- else -}}
 set -g default-terminal "xterm-ghostty"
-{{- end -}}
+{{- end }}
 
 # ====================
 # === Key settings ===
