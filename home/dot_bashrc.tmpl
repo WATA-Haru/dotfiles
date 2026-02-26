@@ -1,3 +1,7 @@
+{{- $isDevContainer := eq (env "REMOTE_CONTAINERS") "true" -}}
+{{- $isUbuntu := eq .chezmoi.os "ubuntu" -}}
+{{- $isDarwin := eq .chezmoi.os "darwin" -}}
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -173,3 +177,11 @@ function share_history {
 }
 PROMPT_COMMAND='share_history'
 shopt -u histappend
+
+# devcontainers + ubuntu
+{{ if and $isDevContainer $isUbuntu -}}
+function post-install {
+  ./$HOME/dotfiles/install/devcontainers/ubuntu/post-install.sh
+}
+
+{{- end -}}
