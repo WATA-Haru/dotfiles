@@ -160,6 +160,24 @@ function dev() {
     fi
 }
 
+function lo() {
+    local base selected
+    base=~/local-only
+
+    selected=$(fd --type d --max-depth 1 --base-directory "${base}" \
+        | fzf --preview "ls -la ${base}/{}" --height 40% --reverse) || return 1
+    [[ -z ${selected} ]] && return 1
+
+    cd "${base}/${selected%/}" || return 1
+
+    # rename session if in tmux
+    if [[ -n ${TMUX} ]]; then
+        local repo_name
+        repo_name="${selected%/}"
+        tmux rename-session "${repo_name//./-}"
+    fi
+}
+
 # === bash appearance prompt ===
 function _current_branch() {
     _git_branch=$(git branch --show-current 2>/dev/null) && echo "[$_git_branch] "
