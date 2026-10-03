@@ -1,6 +1,9 @@
 # Home Manager 移行計画
 
-最初の最小構成を作成する実習手順は [`home-manager-first-step.md`](./home-manager-first-step.md) を参照する。
+実習手順：
+
+1. [`home-manager-first-step.md`](./home-manager-first-step.md): 最小構成のbuildとactivate
+2. [`home-manager-step2-zsh.md`](./home-manager-step2-zsh.md): 既存bashを残したzshの導入と検証
 
 ## 目的
 
