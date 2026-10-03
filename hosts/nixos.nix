@@ -1,6 +1,7 @@
 {
   imports = [
     ../modules/common.nix
+    ../modules/zsh.nix
   ];
 
   home.username = "hwata";
