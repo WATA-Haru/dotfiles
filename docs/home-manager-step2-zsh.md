@@ -355,4 +355,4 @@ Home Managerは、各OSで起動されたzshへ共通設定を提供する。
 - `exit`で既存bashへ安全に戻れる
 - ログインシェルと既存bash設定はまだ変更されていない
 
-完了後は、ログインシェルを変更する前に、既存`.bashrc`から本当に必要な関数、環境変数、mise連携を一項目ずつzsh側へ移す。
+完了後は、[`home-manager-step3-login-shell.md`](./home-manager-step3-login-shell.md)へ進み、既存bashを退避経路として残したままNixOSのログインシェルをzshへ切り替える。
