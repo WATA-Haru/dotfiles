@@ -1,4 +1,11 @@
 # dotfiles
+
+## Home Managerへの移行
+
+開発環境とdotfilesをchezmoiからNix + Home Managerへ段階的に移行する。
+
+- [Home Manager移行計画](./docs/home-manager-migration-plan.md)
+
 ## `ubuntu/`配下
 
 ## 環境作成方針
@@ -38,4 +45,3 @@ sudp apt upgrade
 sudo deb-get update
 sudo deb-get upgrade
 ```
-
