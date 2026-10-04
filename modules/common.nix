@@ -1,7 +1,15 @@
 { pkgs, ... }:
 
 {
-    home.packages = [
-      pkgs.ripgrep
+    home.packages = with pkgs; [
+      ghq
+      neovim
+      ripgrep
+      tmux
     ];
+
+    home.sessionVariables = {
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+    };
 }

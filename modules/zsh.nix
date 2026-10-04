@@ -26,7 +26,10 @@
       lla = "ls -la";
       gs = "git status";
       c = "clear";
+      n = "nvim";
     };
+
+    initContent = builtins.readFile ../dot_config/zsh/functions.zsh;
   };
 
   programs.fzf = {
