@@ -3,7 +3,6 @@
 {
     home.packages = with pkgs; [
       ghq
-      neovim
       ripgrep
       tmux
     ];
