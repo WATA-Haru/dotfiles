@@ -219,7 +219,7 @@ NixOS側を再buildする必要があるのは、ログインシェル本体やO
 - macOS: 標準の`/bin/zsh`をログインシェルとして利用する
 - NixOS: `programs.zsh.enable`と`users.users.<name>.shell`をsystem configurationへ書く
 
-ログインシェルのパスをHome Manager profileやバージョン付きNix storeパスへ手作業で設定しない。OSが管理する安定したshell設定を使い、Home Managerは共通の`~/.zshrc`を担当する。
+ログインシェルのパスをHome Manager profileやバージョン付きNix storeパスへ手作業で設定しない。OSが管理する安定したshell設定を使い、Home Managerは共通の`~/.zshrc`を担当する。/etc/nixos/configuration.nix
 
 ## このStepではまだ行わないこと
 

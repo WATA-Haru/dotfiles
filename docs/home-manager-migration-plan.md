@@ -5,6 +5,7 @@
 1. [`home-manager-first-step.md`](./home-manager-first-step.md): 最小構成のbuildとactivate
 2. [`home-manager-step2-zsh.md`](./home-manager-step2-zsh.md): 既存bashを残したzshの導入と検証
 3. [`home-manager-step3-login-shell.md`](./home-manager-step3-login-shell.md): NixOSでzshをログインシェルに設定
+4. [`home-manager-step4-shell-essentials.md`](./home-manager-step4-shell-essentials.md): bashから必要な設定と依存CLIをzsh環境へ移行
 
 ## 目的
 
