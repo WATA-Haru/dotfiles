@@ -1,6 +1,9 @@
 local deps = require('plugins.deps')
 
-deps.later(function()
+-- Set up before the initial BufEnter event. mini.completion uses that event to
+-- install its LSP completefunc, so `deps.later` leaves the first buffer without
+-- semantic completion (only the fallback word completion remains).
+deps.now(function()
   require('mini.fuzzy').setup()
   require('mini.completion').setup({
     lsp_completion = {
