@@ -9,6 +9,7 @@
 5. [`home-manager-step5-neovim.md`](./home-manager-step5-neovim.md): Lua設定を維持したままNeovimをHome Managerへ移行
 6. [`home-manager-step6-neovim-lsp.md`](./home-manager-step6-neovim-lsp.md): NeovimのLSPをmiseの絶対パスからNixへ移行
 7. [`home-manager-step7-retire-mise.md`](./home-manager-step7-retire-mise.md): 旧mise設定を解体し、常用CLIをHome Managerへ移行
+8. [`home-manager-step8-tmux.md`](./home-manager-step8-tmux.md): tmux設定を通常ファイルへ移し、Home Managerで管理
 
 ## 目的
 

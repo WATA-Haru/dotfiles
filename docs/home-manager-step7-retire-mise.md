@@ -402,4 +402,4 @@ Yaziが必要なら、`mise.toml`の削除をcommitする前はGitから復元�
 - 言語runtime、Codex、gwqなどの保留理由が明確になっている
 - Ubuntu/macOSで使う可能性がある旧chezmoi templateは回復可能な状態で残っている
 
-Step 7完了後は、tmux設定をHome Managerへ移す。Ubuntu用Home Manager configurationを作る段階で、残してある旧mise templateを本当に削除できるか再確認する。
+Step 7完了後は、[`home-manager-step8-tmux.md`](./home-manager-step8-tmux.md)へ進み、tmux設定をHome Managerへ移す。Ubuntu用Home Manager configurationを作る段階で、残してある旧mise templateを本当に削除できるか再確認する。
