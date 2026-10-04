@@ -307,4 +307,4 @@ Step 4ではmiseを起動経路へ戻さず、まず壊れないログインzsh�
 - miseがなくても新しいログインzshがエラーなく起動する
 - bashと既存bash設定はまだ残っている
 
-Step 4完了後は、[`home-manager-step5-neovim.md`](./home-manager-step5-neovim.md)へ進み、Neovim設定をLuaのままHome Managerへ移して、現在miseから供給しているLSPをNixへ移す準備をする。
+Step 4完了後は、Neovim設定をLuaのままHome Managerへ移し、現在miseから供給しているLSPをNixへ移す準備をする。

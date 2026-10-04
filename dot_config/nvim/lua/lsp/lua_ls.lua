@@ -1,12 +1,11 @@
-local home_dir = os.getenv("HOME")
-local lua_ex_path = home_dir .. '/.local/share/mise/installs/lua-language-server/3.17.1/bin/lua-language-server'
+local command = 'lua-language-server'
 
 if vim.fn.executable(lua_ex_path) ~= 1 then
   return {}
 end
 
 return {
-  cmd = { lua_ex_path },
+  cmd = { command },
   filetypes = { 'lua' },
   on_init = function(client)
     if client.workspace_folders then

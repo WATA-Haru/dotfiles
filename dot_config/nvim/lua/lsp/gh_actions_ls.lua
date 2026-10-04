@@ -1,13 +1,12 @@
 -- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/gh_actions_ls.lua
-local home_dir = os.getenv("HOME")
-local gh_actions_ls_ex_path = home_dir .. '/.local/share/mise/installs/npm-gh-actions-language-server/latest/bin/gh-actions-language-server'
+local command = 'gh-actions-language-server'
 
-if vim.fn.executable(gh_actions_ls_ex_path) ~= 1 then
+if vim.fn.executable(command) ~= 1 then
   return {}
 end
 
 return {
-  cmd = { 'node', gh_actions_ls_ex_path, '--stdio' },
+  cmd = { command, '--stdio' },
   filetypes = { 'yaml' },
 
   -- `root_dir` ensures that the LSP does not attach to all yaml files

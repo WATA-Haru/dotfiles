@@ -374,4 +374,4 @@ mv ~/.config/nvim.chezmoi-backup-20261004 ~/.config/nvim
 - 旧設定が回復用backupとして残っている
 - LSPが未導入でもNeovim自体はエラーなく起動する
 
-Step 5完了後は、現在のLSPを「全端末で常用するもの」と「プロジェクト固有のもの」に分類し、miseの絶対パスを廃止してNixの`PATH`から起動する構成へ移す。
+Step 5完了後は、[`home-manager-step6-neovim-lsp.md`](./home-manager-step6-neovim-lsp.md)へ進み、miseの絶対パスを廃止してLSPをNixの`PATH`から起動する構成へ移す。

@@ -6,9 +6,4 @@
       ripgrep
       tmux
     ];
-
-    home.sessionVariables = {
-      EDITOR = "nvim";
-      VISUAL = "nvim";
-    };
 }

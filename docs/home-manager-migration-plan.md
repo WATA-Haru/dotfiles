@@ -7,6 +7,7 @@
 3. [`home-manager-step3-login-shell.md`](./home-manager-step3-login-shell.md): NixOSでzshをログインシェルに設定
 4. [`home-manager-step4-shell-essentials.md`](./home-manager-step4-shell-essentials.md): bashから必要な設定と依存CLIをzsh環境へ移行
 5. [`home-manager-step5-neovim.md`](./home-manager-step5-neovim.md): Lua設定を維持したままNeovimをHome Managerへ移行
+6. [`home-manager-step6-neovim-lsp.md`](./home-manager-step6-neovim-lsp.md): NeovimのLSPをmiseの絶対パスからNixへ移行
 
 ## 目的
 
@@ -93,7 +94,7 @@ projects/dotfiles/
 │   ├── mise.nix
 │   ├── ghostty.nix
 │   └── packages.nix
-├── dotfiles/
+├── dot_config/
 │   ├── nvim/
 │   ├── tmux/
 │   ├── ghostty/
@@ -167,8 +168,7 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
   };
 
   xdg.configFile."nvim" = {
-    source = ../dotfiles/nvim;
-    recursive = true;
+    source = ../dot_config/nvim;
   };
 }
 ```
@@ -246,10 +246,10 @@ Ubuntu/macOSのFlakes設定はHome Manager側で管理できる。NixOSではsys
 
 ### Phase 3: Neovim、tmux、fzf
 
-- `home/dot_config/nvim`を`dotfiles/nvim`へ移す
+- `home/dot_config/nvim`を`dot_config/nvim`へ移す
 - Luaは書き換えず、Home Managerで配置する
 - Neovim本体と必須CLIをHome Managerへ追加する
-- 現在miseで導入しているLSP、formatter、linterを棚卸しし、汎用ツールをHome Managerの`home.packages`へ移す
+- 現在miseで導入しているLSP、formatter、linterを棚卸しし、Neovim専用ツールは`programs.neovim.extraPackages`、shellからも使うものは`home.packages`へ移す
 - Neovim設定からmiseのインストール先への絶対パス参照をなくし、`PATH`上の実行ファイル名で起動する
 - プロジェクト固有のLSPと言語処理系はdevShellから供給し、direnv/nix-direnv経由でNeovimから利用できることを確認する
 - UbuntuとNixOS minimalの双方で起動・LSP・clipboard挙動を確認する
