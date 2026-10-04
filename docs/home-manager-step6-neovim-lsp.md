@@ -551,4 +551,4 @@ LSPの供給元だけを切り替え、plugin管理方式やproject環境を同�
 - NixOSではmiseが未導入でも、NeovimとNix版LSPが動作する
 - 有効なHome Manager・Neovim設定にmiseの絶対パスが残っていない
 
-Step 6完了後は、旧mise設定に混在するCLIと言語runtimeを分類する。`yazi`など全端末で使うCLIはHome Managerへ移し、project固有runtimeはdevShellへ任せ、不要になったmise設定を撤去する。その後にtmux設定のHome Manager移行へ進む。
+Step 6完了後は、[`home-manager-step7-retire-mise.md`](./home-manager-step7-retire-mise.md)へ進む。旧mise設定に混在するCLIと言語runtimeを分類し、`yazi`など全端末で使うCLIはHome Managerへ移し、project固有runtimeはdevShellへ任せる。

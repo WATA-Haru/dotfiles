@@ -8,6 +8,7 @@
 4. [`home-manager-step4-shell-essentials.md`](./home-manager-step4-shell-essentials.md): bashから必要な設定と依存CLIをzsh環境へ移行
 5. [`home-manager-step5-neovim.md`](./home-manager-step5-neovim.md): Lua設定を維持したままNeovimをHome Managerへ移行
 6. [`home-manager-step6-neovim-lsp.md`](./home-manager-step6-neovim-lsp.md): NeovimのLSPをmiseの絶対パスからNixへ移行
+7. [`home-manager-step7-retire-mise.md`](./home-manager-step7-retire-mise.md): 旧mise設定を解体し、常用CLIをHome Managerへ移行
 
 ## 目的
 
@@ -88,12 +89,11 @@ projects/dotfiles/
 │   ├── linux.nix
 │   ├── darwin.nix
 │   ├── zsh.nix
+│   ├── cli.nix
 │   ├── git.nix
 │   ├── tmux.nix
 │   ├── neovim.nix
-│   ├── mise.nix
-│   ├── ghostty.nix
-│   └── packages.nix
+│   └── ghostty.nix
 ├── dot_config/
 │   ├── nvim/
 │   ├── tmux/
@@ -272,7 +272,8 @@ Ubuntu/macOSのFlakes設定はHome Manager側で管理できる。NixOSではsys
 ### Phase 5: その他の設定
 
 - GhosttyはGUIホストだけに配置する
-- mise、gwq、fcitx5、VSCode Neovim設定を順次移す
+- 旧mise設定は常用CLI、project固有runtime、廃止対象へ分解し、mise自体を残す必要がなければ撤去する
+- gwq、fcitx5、VSCode Neovim設定を順次移す
 - 各アプリについて「Home Manager moduleを使う」「元ファイルを配置する」の単純な方を選ぶ
 - OS固有差分はホストまたはOSモジュールへ閉じ込める
 
