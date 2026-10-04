@@ -428,9 +428,15 @@ Neovim内で少し待ってから実行する。
 
 Vueでは特に`<template>`内の補完と、`<script setup lang="ts">`側の型情報を確認する。二つのclientがattachしていても、同じdiagnosticやcompletionが過剰に重複していないかを見る。
 
-## 14. mise側はまだ削除しない
+## 14. LSP用途のmise依存が終了したことを確認する
 
-このStepでは、miseのLSP installationやcacheを削除しない。まず数日使い、Neovimが常にNix版を起動していることを確認する。
+現在のNixOSにはmise自体が導入されていない。これは異常ではなく、miseを導入し直す必要もない。
+
+```zsh
+command -v mise
+```
+
+何も表示されなくても、Neovim内からNix版LSPが見つかればStep 6の目的を満たしている。
 
 Neovim内で実行する。
 
@@ -439,7 +445,17 @@ Neovim内で実行する。
 :lua =vim.fn.exepath('vtsls')
 ```
 
-`/nix/store/`以下を指していればNix版である。安定後にmise側の重複を棚卸しする。削除はStep 6の完了条件ではない。
+`/nix/store/`以下を指していればNix版である。
+
+さらに、現在のHome Manager構成とNeovim設定にmise参照が残っていないことを確認する。
+
+```zsh
+rg -n '\bmise\b|mise/installs' modules hosts dot_config
+```
+
+何も表示されなければ、NixOS上の有効な設定についてはLSP用途のmise依存が終了している。
+
+一方、`home/dot_config/mise/config.toml.tmpl`は旧chezmoi設定であり、言語runtime、CLI、LSPが混在している。また、リポジトリ直下の`mise.toml`には`yazi`が残っている。これらはStep 6で一括削除せず、次のStepでCLIをHome Managerへ移した後に整理する。Ubuntu側でmiseをまだ利用している場合も、その端末の移行確認前にinstallationやcacheを削除しない。
 
 ## 問題があった場合の切り分け
 
@@ -513,8 +529,8 @@ LSPの変更だけでNeovim本体が起動不能になる可能性は低い。�
 
 ## このStepではまだ行わないこと
 
-- miseそのものの削除
 - miseに残る言語runtimeやproject toolの一括移行
+- 旧`home/dot_config/mise/config.toml.tmpl`とルート`mise.toml`の削除
 - `gh-actions-language-server`の独自Nix package作成
 - formatter、linterの移行
 - Neovim pluginやTreesitter parserのNix管理
@@ -532,6 +548,7 @@ LSPの供給元だけを切り替え、plugin管理方式やproject環境を同�
 - Lua、Markdown、Python、TypeScriptのうち実際に使えるprojectでclientのattachを確認した
 - Vue projectで`vtsls`と`vue_ls`のattach、および`<template>`補完を確認した
 - `gh_actions_ls`はcommandがない端末でもNeovimの起動を妨げない
-- mise側のinstallationは、動作確認が済むまで回復用として残っている
+- NixOSではmiseが未導入でも、NeovimとNix版LSPが動作する
+- 有効なHome Manager・Neovim設定にmiseの絶対パスが残っていない
 
-Step 6完了後は、tmux設定のHome Manager移行へ進むのがよい。LSP以外のformatter・linterは、実際の使用状況を棚卸ししてから別Stepに分ける。
+Step 6完了後は、旧mise設定に混在するCLIと言語runtimeを分類する。`yazi`など全端末で使うCLIはHome Managerへ移し、project固有runtimeはdevShellへ任せ、不要になったmise設定を撤去する。その後にtmux設定のHome Manager移行へ進む。
