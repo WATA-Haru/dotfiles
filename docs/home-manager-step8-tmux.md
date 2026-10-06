@@ -8,7 +8,7 @@ chezmoiが生成しているtmux設定をHome Managerへ移し、tmux本体と�
 
 - `hosts/nixos.nix`から共通のmodule選択を`hosts/common.nix`へ分離する
 - tmux本体を`programs.tmux`で管理する
-- tmux固有の設定を`dot_config/tmux/common.conf`へ置く
+- tmux固有の設定を`dot_config/tmux/tmux.conf`へ置く
 - Home Managerで表現できる標準optionは`modules/tmux.nix`へ置く
 - `default-shell /bin/bash`を廃止し、login shellのzshを利用する
 - tmux内の`TERM`を`tmux-256color`へ統一する
@@ -30,7 +30,7 @@ projects/dotfiles/
 │   └── zsh.nix
 └── dot_config/
     └── tmux/
-        └── common.conf
+        └── tmux.conf
 ```
 
 `hosts/common.nix`は、各hostで利用するHome Manager moduleの組み合わせを表す。一方、既存の`modules/common.nix`は共通packageを宣言する機能moduleである。同名でもdirectoryと役割が異なる。
@@ -55,7 +55,7 @@ Step 7までの変更が残っている場合は、内容を確認して先にco
 home/dot_config/tmux/tmux.conf.tmpl -> dot_config/tmux/tmux.conf
 ```
 
-この場合はStep 4で、そのファイルをさらに`common.conf`へrenameする。
+この場合はそのファイルを移動先としてそのまま使用する。
 
 ## 2. 共通のhost構成を作る
 
@@ -114,11 +114,7 @@ nix build '.#homeConfigurations."hwata@nixos".activationPackage'
 
 ## 4. tmux設定を`dot_config`へ移す
 
-すでに`dot_config/tmux/tmux.conf`まで移動している場合は、共通設定を表す名前へ変更する。
-
-```zsh
-git mv dot_config/tmux/tmux.conf dot_config/tmux/common.conf
-```
+すでに`dot_config/tmux/tmux.conf`まで移動している場合は、そのままStep 5へ進む。
 
 まだ元のtemplateにある場合は、代わりに次を実行する。
 
@@ -126,14 +122,16 @@ git mv dot_config/tmux/tmux.conf dot_config/tmux/common.conf
 mkdir -p dot_config/tmux
 git mv \
   home/dot_config/tmux/tmux.conf.tmpl \
-  dot_config/tmux/common.conf
+  dot_config/tmux/tmux.conf
 ```
 
 この時点では`~/.config/tmux/tmux.conf`は変化せず、実行中のtmux serverにも影響しない。
 
-## 5. `common.conf`を通常のtmux設定へ整理する
+設定ファイルが一つだけの間は、一般的な`tmux.conf`という名前を使う。将来OS固有設定などへ分割する必要が生じた時点で、`common.conf`と追加ファイルに分ければよい。
 
-`dot_config/tmux/common.conf`を次の内容へ整理する。
+## 5. `tmux.conf`を通常のtmux設定へ整理する
+
+`dot_config/tmux/tmux.conf`を次の内容へ整理する。
 
 ```tmux
 # Settings represented by Home Manager options live in modules/tmux.nix.
@@ -220,7 +218,7 @@ set-option -g set-clipboard on
     # Keep the conventional /tmp/tmux-UID socket during this migration.
     secureSocket = false;
 
-    extraConfig = builtins.readFile ../dot_config/tmux/common.conf;
+    extraConfig = builtins.readFile ../dot_config/tmux/tmux.conf;
   };
 }
 ```
@@ -294,7 +292,7 @@ git add \
   hosts/nixos.nix \
   modules/common.nix \
   modules/tmux.nix \
-  dot_config/tmux/common.conf
+  dot_config/tmux/tmux.conf
 ```
 
 確認する。
@@ -320,7 +318,7 @@ nix build '.#homeConfigurations."hwata@nixos".activationPackage'
 sed -n '1,280p' result/home-files/.config/tmux/tmux.conf
 ```
 
-Home Managerが生成した標準optionと、`common.conf`から取り込んだ設定が一つのファイルになっている。
+Home Managerが生成した標準optionと、`dot_config/tmux/tmux.conf`から取り込んだ設定が一つのファイルになっている。
 
 重要な値を検索する。
 
@@ -524,7 +522,7 @@ git diff --cached
 - `hosts/common.nix`が共通moduleをimportしている
 - `hosts/nixos.nix`にはhost固有値だけがある
 - `home/dot_config/tmux/tmux.conf.tmpl`が移動元として削除されている
-- `dot_config/tmux/common.conf`にchezmoi template構文が残っていない
+- `dot_config/tmux/tmux.conf`にchezmoi template構文が残っていない
 - `modules/tmux.nix`が追加されている
 - `modules/common.nix`からtmux packageが外れている
 - `default-shell /bin/bash`が残っていない
@@ -538,7 +536,7 @@ git add \
   hosts/nixos.nix \
   modules/common.nix \
   modules/tmux.nix \
-  dot_config/tmux/common.conf
+  dot_config/tmux/tmux.conf
 
 git commit -m "Manage tmux with Home Manager"
 ```
@@ -581,7 +579,7 @@ home-manager generations
 - `hosts/common.nix`に共通moduleの選択が分離されている
 - `hosts/nixos.nix`にはusername、home directory、state versionだけがある
 - tmux本体が`programs.tmux`から導入されている
-- `dot_config/tmux/common.conf`が通常のtmux設定ファイルになっている
+- `dot_config/tmux/tmux.conf`が通常のtmux設定ファイルになっている
 - `~/.config/tmux/tmux.conf`がHome Manager管理になっている
 - 新しいtmux serverのdefault shellがzshになっている
 - tmux内の`TERM`が`tmux-256color`になっている
