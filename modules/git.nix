@@ -1,6 +1,10 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
+  home.packages = [
+    pkgs.ghq
+  ];
+
   programs.git = {
     enable = true;
 
@@ -9,9 +13,10 @@
         path = "~/.config/git/identity";
       }
     ];
-  };
 
-  programs.git.settings = {
-    init.defaultBranch = "main";
+    settings = {
+      init.defaultBranch = "main";
+      ghq.root = "~/ghq";
+    };
   };
 }

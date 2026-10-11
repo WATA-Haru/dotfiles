@@ -4,6 +4,9 @@
   # packageだけを管理し、~/.config/ghと認証情報には触れない。
   home.packages = with pkgs; [
     gh
+    codex
+    jujutsu
+    wget
   ];
 
   programs.bat.enable = true;

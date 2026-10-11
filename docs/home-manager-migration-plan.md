@@ -11,6 +11,7 @@
 7. [`home-manager-step7-retire-mise.md`](./home-manager-step7-retire-mise.md): 旧mise設定を解体し、常用CLIをHome Managerへ移行
 8. [`home-manager-step8-tmux.md`](./home-manager-step8-tmux.md): host共通構成を分離し、tmuxをHome Managerへ移行
 9. [`home-manager-step9-git.md`](./home-manager-step9-git.md): Git本体と一般設定をHome Managerへ移し、identityをローカルファイルへ分離
+10. [`home-manager-step10-ghq-retire-chezmoi.md`](./home-manager-step10-ghq-retire-chezmoi.md): ghq workflowを確定し、chezmoiを通常運用から撤去
 
 ## 目的
 
@@ -32,7 +33,7 @@ bash: /home/hwata/.local/share/blesh/ble.sh: No such file or directory
 最初のマイルストーンは「完成したdotfiles」ではなく、次を満たす最小環境とする。
 
 - 新しいshellがエラーなく起動する
-- Home Managerがzsh、Git、tmux、Neovim、fzf、jujutsuを導入できる
+- Home Managerがzsh、Git、tmux、Neovim、fzf、ghq、jujutsuを導入できる
 - オプションの外部ツールがなくてもshell起動を妨げない
 - NixOS minimalへSSHし、tmuxとNeovimを利用できる
 
@@ -43,7 +44,7 @@ bash: /home/hwata/.local/share/blesh/ble.sh: No such file or directory
 ### Home Manager で管理するもの
 
 - zsh、Git、tmux、Neovim の設定
-- Ghostty、mise、gwq、fcitx5 などのユーザー設定
+- Ghostty、mise、fcitx5 などのユーザー設定
 - ripgrep、fd、fzf、jq、Neovim など、普段どの端末でも利用する CLI
 - LSP、formatter、linter など、ユーザー環境に常設する開発支援ツール
 - 環境変数、alias、ユーザー単位の設定ファイル
@@ -101,7 +102,6 @@ projects/dotfiles/
 │   ├── tmux/
 │   ├── ghostty/
 │   ├── fcitx5/
-│   └── gwq/
 ├── bootstrap/
 ├── docs/
 └── legacy/
@@ -265,17 +265,18 @@ Ubuntu/macOSのFlakes設定はHome Manager側で管理できる。NixOSではsys
 
 - Gitの一般設定は`programs.git`へ移す
 - identityはホスト設定または別の非公開設定から渡す
-- ghq/gwqとGit worktree workflowを移行する
-- jujutsuをHome Managerで導入し、Git併用時の最小設定を作る
+- ghqのroot、clone、fzfによるrepository移動をHome Manager環境で再現する
+- 現在利用していないgwqとGit worktree workflowは移行対象から外す
+- jujutsuの設定は日常利用を始めるまでバックログへ置く
 - Git diff/reviewツールは既存候補を評価する。difitのforkや自作は別プロジェクトとして判断し、Home Manager移行をブロックさせない
 
-完了条件：Gitの基本操作、worktree管理、jujutsuの試用が再現できる。
+完了条件：Gitの基本操作とghqによるrepository管理が再現できる。
 
 ### Phase 5: その他の設定
 
 - GhosttyはGUIホストだけに配置する
 - 旧mise設定は常用CLI、project固有runtime、廃止対象へ分解し、mise自体を残す必要がなければ撤去する
-- gwq、fcitx5、VSCode Neovim設定を順次移す
+- fcitx5、VSCode Neovim設定を必要に応じて順次移す
 - 各アプリについて「Home Manager moduleを使う」「元ファイルを配置する」の単純な方を選ぶ
 - OS固有差分はホストまたはOSモジュールへ閉じ込める
 
@@ -347,7 +348,7 @@ Ubuntu/macOSのFlakes設定はHome Manager側で管理できる。NixOSではsys
 ### VCSとdiff
 
 - jujutsuを日常workflowで試す
-- Git worktree管理をghq/gwqと合わせて整理する
+- Git worktreeやgwqが再び必要になった時点で、ghqとの役割分担を整理する
 - terminal向けのdiff/code reviewツールを評価する
 - difitの代替がなければ、forkまたは自作を独立した課題として起票する
 

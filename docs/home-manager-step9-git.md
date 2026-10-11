@@ -469,4 +469,4 @@ repository内のchezmoi templateは、commit前なら`git restore --staged`で�
 - chezmoiが`~/.gitconfig`を管理していない
 - 旧`~/.gitconfig`が回復用backupとして残っている
 
-Step 9完了後は、ghq、gwq、worktree workflowまたはjujutsuのうち、日常利用で優先度が高いものを一つ選び、独立したStepとして移行する。
+Step 9完了後は、[`home-manager-step10-ghq-retire-chezmoi.md`](./home-manager-step10-ghq-retire-chezmoi.md)へ進み、ghq workflowを確認してからchezmoiを通常運用から撤去する。
