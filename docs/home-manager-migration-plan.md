@@ -9,7 +9,8 @@
 5. [`home-manager-step5-neovim.md`](./home-manager-step5-neovim.md): Lua設定を維持したままNeovimをHome Managerへ移行
 6. [`home-manager-step6-neovim-lsp.md`](./home-manager-step6-neovim-lsp.md): NeovimのLSPをmiseの絶対パスからNixへ移行
 7. [`home-manager-step7-retire-mise.md`](./home-manager-step7-retire-mise.md): 旧mise設定を解体し、常用CLIをHome Managerへ移行
-8. [`home-manager-step8-tmux.md`](./home-manager-step8-tmux.md): 共通・Linux・macOS設定に分けてtmuxをHome Managerへ移行
+8. [`home-manager-step8-tmux.md`](./home-manager-step8-tmux.md): host共通構成を分離し、tmuxをHome Managerへ移行
+9. [`home-manager-step9-git.md`](./home-manager-step9-git.md): Git本体と一般設定をHome Managerへ移し、identityをローカルファイルへ分離
 
 ## 目的
 
@@ -308,6 +309,10 @@ Ubuntu/macOSのFlakes設定はHome Manager側で管理できる。NixOSではsys
 
 - 補完とvi-like key bindingを整備する
 - vi mode中でも`Ctrl-C`が期待どおりsignalとして働くことを確認する
+- zshのpromptへ色を付け、現在のdirectoryとGit branchを見分けやすく表示する
+- prompt設定はHome Managerが生成する`.zshrc`から読み込める独立したzshファイルにし、Git repository外でもエラーなく動くことを確認する
+- shell履歴をfzfで絞り込み、選択したコマンドを編集してから実行できる履歴検索を追加する
+- 履歴検索のkey binding、複数行commandの扱い、fzfをキャンセルした場合の挙動をsmoke testする
 
 ### tmuxとAI workflow
 

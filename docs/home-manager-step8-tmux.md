@@ -488,9 +488,24 @@ nvim
 
 OSC 52対応terminalから接続している場合は、tmux copy modeでyankした内容をclient側へpasteできることも確認する。
 
-## 16. chezmoi管理を停止する
+## 16. chezmoiの管理対象から外れたことを確認する
 
-Home Manager版tmuxが正常に動くことを確認した後、chezmoiの管理対象から外す。
+このStepでは、repository内のchezmoi sourceだった`home/dot_config/tmux/tmux.conf.tmpl`を`dot_config/tmux/tmux.conf`へ移動している。ただし、chezmoiが現在参照しているsource directoryがこのrepositoryとは別にある場合、そちらには古いtemplateが残る。
+
+実際のsource directoryを確認する。
+
+```zsh
+chezmoi source-path
+```
+
+続けて、tmuxがまだ管理対象か確認する。
+
+
+```zsh
+chezmoi managed ~/.config/tmux
+```
+
+何も表示されなければ追加作業は不要である。tmux設定が表示され、chezmoiをすぐにはアンインストールしない場合は、再度`chezmoi apply`したときにHome Managerのsymlinkを上書きしないよう、明示的に管理対象から外す。
 
 まずdry-runする。
 
@@ -505,7 +520,11 @@ chezmoi forget ~/.config/tmux/tmux.conf
 chezmoi managed ~/.config/tmux
 ```
 
-何も表示されなければよい。chezmoi側ですでに移動元が存在しないため、`forget`が「管理対象ではない」と報告する場合も、`chezmoi managed`が空なら目的を満たしている。
+最後のcommandで何も表示されなければよい。
+
+chezmoiをこの場でアンインストールし、それまで`chezmoi apply`を実行しない場合は`forget`を省略してもよい。その場合は、chezmoiを残したまま移行完了とは扱わない。
+
+`.chezmoiignore`の追加は不要である。これはsourceを残したまま一時的に適用対象から除外する仕組みであり、所有権をHome Managerへ完全に移す今回の用途では、`forget`またはchezmoi自体のアンインストールの方が状態を明確にできる。
 
 ## 17. 変更を確認してcommitする
 
