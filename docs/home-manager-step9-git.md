@@ -299,10 +299,13 @@ readlink -f ~/.config/git/config
 Gitが読み込んでいるglobal設定を確認する。
 
 ```zsh
-git config --global --show-origin --get-regexp '^user\.(name|email)$'
+git config --global --includes --show-origin \
+  --get-regexp '^user\.(name|email)$'
 ```
 
 `user.name`と`user.email`の出所が`~/.config/git/identity`になっていればよい。同じkeyがbackupや別ファイルから重複して表示される場合は、残っているglobal configを調べる。
+
+`git config`は、通常の設定検索ではincludeを辿る。一方、`--global`や`--file`で特定の設定ファイルを指定した場合はinclude展開が既定で無効になるため、ここでは`--includes`を明示する。
 
 include自体の出所も確認する。
 
@@ -315,7 +318,7 @@ Home Managerが生成した`~/.config/git/config`からidentityをincludeして�
 Git repository内ではlocal設定がglobal設定を上書きできる。確認には`--show-origin`と`--show-scope`を利用できる。
 
 ```zsh
-git config --show-origin --show-scope --list
+git config --includes --show-origin --show-scope --list
 ```
 
 ## 12. Gitの基本動作をsmoke testする
