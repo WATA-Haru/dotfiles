@@ -1,5 +1,9 @@
 # dotfiles
 
+## Nix command一覧
+
+NixOSとHome Managerのbuild、反映、rollbackで使うcommandは[Nix command cheat sheet](./docs/nix-commands.md)にまとめている。
+
 ## Home Managerへの移行
 
 開発環境とdotfilesをchezmoiからNix + Home Managerへ段階的に移行する。
