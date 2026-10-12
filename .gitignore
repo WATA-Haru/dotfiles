@@ -44,6 +44,8 @@
 **/out/
 **/target/
 **/node_modules/
+result
+result-*
 
 
 # ==================
