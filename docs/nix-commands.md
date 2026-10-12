@@ -200,8 +200,43 @@ home-manager generations
 
 ### NixOSを一つ前へ戻す
 
+flake-only構成では、`nixos-rebuild switch --rollback`がlegacyの`NIX_PATH`から`nixos-config`を探して失敗する場合がある。system profileを一つ前へ戻してから、そのgenerationをactivateする。
+
+最初に、rollback先を確認する。
+
 ```zsh
-sudo nixos-rebuild switch --rollback
+nix profile history \
+  --profile /nix/var/nix/profiles/system
+```
+
+profile変更のdry runを行う。
+
+```zsh
+sudo nix profile rollback --dry-run \
+  --profile /nix/var/nix/profiles/system
+```
+
+問題がなければ、system profileを一つ前へ戻してactivateする。
+
+```zsh
+sudo nix profile rollback \
+  --profile /nix/var/nix/profiles/system
+
+sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
+```
+
+確認する。
+
+```zsh
+readlink -f /run/current-system
+readlink -f /nix/var/nix/profiles/system
+nixos-version
+```
+
+確認後、このrepositoryのflakeを再適用する。
+
+```zsh
+sudo nixos-rebuild switch --flake '.#nixos'
 ```
 
 bootできない場合は、boot menuから以前のNixOS generationを選択する。
