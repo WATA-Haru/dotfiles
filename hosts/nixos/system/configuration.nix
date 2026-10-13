@@ -15,6 +15,7 @@
       ./hardware-configuration.nix
       ./ssh.nix
       ./daily-use-packages.nix
+      ./tailscale.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
