@@ -1,7 +1,7 @@
 { config, ... }:
 
 let
-  homeSubnet = "192.168.0.24/24";
+  homeSubnet = "192.168.0.0/24";
 in
 {
   networking.nftables.enable = true;
