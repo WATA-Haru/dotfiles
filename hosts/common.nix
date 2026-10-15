@@ -6,6 +6,7 @@
     ../modules/zsh.nix
     ../modules/tmux.nix
     ../modules/git.nix
+    ../modules/direnv.nix
   ];
 
   programs.home-manager.enable = true;
