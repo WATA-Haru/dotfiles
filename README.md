@@ -81,6 +81,118 @@ API token、password、秘密鍵などのsecretをNix式へ平文で書かない
 
 GitHubやその他のサービスへ対話的にログインするcredentialは、credential manager、password manager、SSH agentなども含めて用途ごとに選ぶ。`sops-nix`の導入は、管理対象となるsecretと復号鍵のbootstrap方法を決めてから独立したStepとして行う。
 
+## NixOSへのSSH接続方針
+
+NixOSのTCP 22をpublic Internetへ直接公開しない。接続元の場所によって、次の二つの経路を使い分ける。
+
+| 接続元 | 接続先 | 経路 |
+| --- | --- | --- |
+| 自宅LAN | NixOSのprivate IPv4 address | LAN内で直接TCP 22へ接続する |
+| 自宅以外 | `nixos.tail7863cc.ts.net` | 同じtailnetへ参加し、Tailscale経由でTCP 22へ接続する |
+
+どちらもNixOSのOpenSSH serverを利用する。Tailscale SSHは使用せず、Tailscaleは自宅以外からNixOSへ到達するためのprivate networkとして使用する。
+
+NixOS側では次を維持する。
+
+- password authenticationとkeyboard-interactive authenticationを無効にする
+- root loginを無効にする
+- login可能なuserを`hwata`へ限定する
+- 自宅subnetとTailscale interfaceからのTCP 22だけをfirewallで許可する
+- routerでTCP 22をport forwardingしない
+- public keyだけを[`hosts/nixos/system/ssh.nix`](./hosts/nixos/system/ssh.nix)で管理する
+- private keyはこのrepositoryやNix storeへ保存しない
+
+Tailscale serviceは[`hosts/nixos/system/tailscale.nix`](./hosts/nixos/system/tailscale.nix)で管理する。
+
+### Client用SSH keyを作成する
+
+```zsh
+ssh-keygen \
+  -t ed25519 \
+  -a 100 \
+  -f ~/.ssh/laptop_to_nixos_ed25519 \
+  -C 'laptop-to-nixos'
+```
+
+生成される二つのfileは役割が異なる。
+
+```text
+~/.ssh/laptop_to_nixos_ed25519       private key: clientの外へ出さない
+~/.ssh/laptop_to_nixos_ed25519.pub   public key: NixOSへ登録する
+```
+
+permissionを確認する。
+
+```zsh
+chmod 600 ~/.ssh/laptop_to_nixos_ed25519
+chmod 644 ~/.ssh/laptop_to_nixos_ed25519.pub
+```
+
+public keyを確認する。
+
+```zsh
+cat ~/.ssh/laptop_to_nixos_ed25519.pub
+```
+
+表示されたpublic key一行全体を、NixOS側の`users.users.hwata.openssh.authorizedKeys.keys`へ追加する。private keyの内容は追加しない。
+
+最初はpassword loginを無効化する前にpublic keyを追加し、NixOSへ反映する。
+hostで実行する。
+
+```zsh
+sudo nixos-rebuild switch --flake '.#nixos'
+```
+
+別terminalからpublic key loginに成功したことを確認した後、password authenticationを無効化する。設定変更中は、確認済みのSSH connectionまたはNixOSのlocal consoleを閉じない。
+
+### ClientのSSH configへ登録する
+
+`~/.ssh/config`がなければ作成し、permissionを限定する。既存fileは上書きしない。
+
+```zsh
+touch ~/.ssh/config
+chmod 600 ~/.ssh/config
+```
+
+次を追加する。`192.168.0.24`は、routerでNixOSへ予約した実際のLAN addressへ置き換える。
+
+```sshconfig
+Host nixos-home
+  HostName 192.168.0.24
+  User hwata
+  IdentityFile ~/.ssh/laptop_to_nixos_ed25519
+  IdentitiesOnly yes
+
+Host nixos-tail
+  HostName nixos.tail7863cc.ts.net
+  User hwata
+  IdentityFile ~/.ssh/laptop_to_nixos_ed25519
+  IdentitiesOnly yes
+```
+
+passphraseを設定したkeyをSSH agentへ登録する場合は、次を実行する。agentの起動と永続化方法はclient OSに任せる。
+
+```zsh
+ssh-add ~/.ssh/laptop_to_nixos_ed25519
+ssh-add -l
+```
+
+### 接続
+
+自宅LAN
+
+```zsh
+ssh nixos-home
+```
+
+自宅以外
+
+```zsh
+ssh nixos-tail
+```
+
+両方の接続でNixOS accountのpasswordを要求されず、登録したpublic keyでloginできればよい。keyのpassphrase入力はNixOS accountのpassword authenticationとは別であり、必要ならSSH agentで保持する。
+
 ## `ubuntu/`配下
 
 ## 環境作成方針
