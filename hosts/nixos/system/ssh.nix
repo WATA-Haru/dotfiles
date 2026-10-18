@@ -4,6 +4,7 @@ let
   homeSubnet = "192.168.0.0/24";
 in
 {
+  services.resolved.enable = true;
   networking.nftables.enable = true;
 
   networking.firewall.extraInputRules = ''
