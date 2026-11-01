@@ -27,5 +27,6 @@ in
   users.users.hwata.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPg62tkYqmWIUoHyroTwQ3hIvGdfrfcTWmpDT8QyZHF5 laptop-to-nixos"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINghob82c3fhw6Xe200GZSgNgpqSv1CE5zIzGSM+m37s" #smartphone(oppo)2nixos
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF2BGJBDFygPRNLfitRavnhxySTse8GqSdWtYUPJzFhq CPH2353" #smartphone(oppo)2nixos termRover
   ];
 }
