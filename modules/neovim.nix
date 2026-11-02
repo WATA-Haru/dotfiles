@@ -7,9 +7,9 @@ in
 {
   programs.neovim = {
     enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
+    defaultEditor = false;
+    viAlias = false;
+    vimAlias = false;
 
     extraPackages = with pkgs; [
       # nvim-treesitter

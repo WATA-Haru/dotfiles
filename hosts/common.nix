@@ -2,6 +2,7 @@
   imports = [
     ../modules/cli.nix
     ../modules/common.nix
+    ../modules/vim.nix
     ../modules/neovim.nix
     ../modules/zsh.nix
     ../modules/tmux.nix
