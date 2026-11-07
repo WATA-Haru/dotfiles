@@ -7,6 +7,7 @@
     codex
     jujutsu
     wget
+    glow
   ];
 
   programs.bat.enable = true;
