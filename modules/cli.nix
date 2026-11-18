@@ -6,8 +6,8 @@
     gh
     codex
     jujutsu
+    md-tui
     wget
-    glow
   ];
 
   programs.bat.enable = true;
