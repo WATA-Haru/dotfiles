@@ -18,7 +18,7 @@ syntax off
 colorscheme morning
 
 inoremap jk <Esc>
-let mapleader = "<Space>"
+let mapleader = " "
 
 " netrw
 let g:netrw_banner=0
@@ -40,8 +40,9 @@ set clipmethod+=osc52
 set omnifunc=ale#completion#OmniFunc
 set signcolumn=yes
 nnoremap K <cmd>ALEHover<CR>
-nnoremap <leader>gd <cmd>ALEGoToDefinition<CR>
-nnoremap <leader>gr <cmd>ALEFindReferences<CR>
+nnoremap gd <cmd>call ale#definition#GoTo({'open_in': 'quickfix'})<CR>
+nnoremap gb <C-t>
+nnoremap gr <cmd>ALEFindReferences<CR>
 nnoremap <leader>ca <cmd>ALECodeAction<CR>
 set completeopt=menuone,noselect
 
@@ -55,7 +56,6 @@ function! s:HoverOrPreview() abort
 		let buf = winbufnr(id)
 		let lines = getbufline(buf, 1, '$')
 		let ft = getbufvar(buf, '&filetype')
-	
 		call popup_close(id)
 		unlet! w:preview
 		call ale#preview#Show(lines, {'filetype': ft})
