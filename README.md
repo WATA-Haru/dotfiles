@@ -4,6 +4,37 @@
 
 NixOSとHome Managerのbuild、反映、rollbackで使うcommandは[Nix command cheat sheet](./docs/nix-commands.md)にまとめている。
 
+## tmux plugin（TPM）
+
+tmux pluginはTPMで管理する。TPM本体だけを一度cloneする。
+
+```zsh
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+
+`dot_config/tmux/tmux.conf`に`@plugin`の宣言とTPMを読み込む`run`を追加した後、tmux内で`prefix + I`を押すとpluginが取得される。この構成ではXDG形式の`~/.config/tmux/tmux.conf`が存在するため、TPMは既定の`~/.tmux/plugins`ではなく`~/.config/tmux/plugins`へ各pluginを配置する。TPM本体のclone先とpluginの配置先が異なるのは仕様である。
+
+### NixOSで配布済みbinaryを使う場合
+
+`tmux-agent-sidebar`などは、pluginの初回設定時に一般的なLinux向けの配布済みbinaryをdownloadすることがある。これは実行fileの中に必要なlibraryを全て含める方式ではなく、起動時にOS標準のdynamic loaderとshared libraryを読み込む方式のbinaryである。
+
+一般的なLinux distributionではloaderが`/lib64/ld-linux-x86-64.so.2`のような固定pathにあり、libraryも標準directoryから見つかる。一方NixOSではlibraryが`/nix/store`に置かれ、通常はその固定pathのloaderを提供しないため、この種のbinaryはそのまま実行できない。
+
+このrepositoryでは[`hosts/nixos/system/configuration.nix`](./hosts/nixos/system/configuration.nix)で`programs.nix-ld.enable = true`を有効にしている。`nix-ld`は互換loaderを用意し、Nixpkgs外で配布されたdynamic binaryを起動可能にする。設定を変更したらsystem設定を反映する。
+
+```zsh
+sudo nixos-rebuild switch --flake '.#nixos'
+```
+
+導入後にsidebarが開かない場合は、tmux設定を再読み込みし、binaryが認識されていることを確認する。
+
+```zsh
+tmux source-file ~/.config/tmux/tmux.conf
+tmux show-options -gqv @agent_sidebar_bin
+```
+
+後者が`tmux-agent-sidebar`のpathを返せば、`prefix + e`でsidebarを開ける。
+
 ## Home Managerへの移行
 
 開発環境とdotfilesをchezmoiからNix + Home Managerへ段階的に移行する。

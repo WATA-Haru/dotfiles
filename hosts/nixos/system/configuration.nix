@@ -131,6 +131,9 @@
   # My Settings below
   time.timeZone = "Asia/Tokyo";
 
+  # Run dynamically linked binaries distributed outside Nixpkgs (e.g. TPM plugins).
+  programs.nix-ld.enable = true;
+
   programs.zsh.enable = true;
 
   users.users.hwata = {
